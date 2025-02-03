@@ -1,8 +1,21 @@
-# React + Vite
+<div id="header" >
+ <h1  class="heading-element" dir="auto">SUDDEN DEATH<a href="">Vist Here</a> </h1>
+ <img src=" alt="Sudden Death">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+</div>
 
-Currently, two official plugins are available:
+<div id="header" >
+ <h1 class="heading-element" dir="auto">How It's Made:</h1>
+ Tech used: HTML, CSS, JavaScript,React <br/><br/>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+</div>
+
+<div id="header" >
+ <h1 class="heading-element" dir="auto">Optimizations:</h1>
+ \
+</div>
+
+<div id="header">
+ <h1 class="heading-element" dir="auto">Lessons Learned:</h1>
+ 
+</div>
