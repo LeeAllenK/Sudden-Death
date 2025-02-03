@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Inter", serif;
+  font-weight: 900;
+  font-size: 25px;
+}
+.playBorder{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.homeBtn,.suddenDeathBtn{
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-size: 25px;
+  font-weight: 900;
+  font-style: normal;
+  border: 1px solid black;
+  border-radius: 40px;
+  width: 300px;
+  height: 50px;
+  margin: 10px;
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+.homeBtn {
+  position: fixed;
+  left: 20px;
+  top: 20px
+}
+.homeBtn:hover{
+  background: green;
+}
+.suddenDeathBtn:hover{
+  background: red;
+}
+.playBtn,
+.instructionBtn {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-size: 40px;
+  font-weight: 900;
+  font-style: normal;
+  border: 1px solid black;
+  border-radius: 60px;
+  width: 500px;
+  height: 100px;
+  margin: 10px;
+  background: linear-gradient(to bottom, white, white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+.playBtn{
+  animation: animationPlayBtn 2s infinite;
+}
+.playBtn:hover,
+.instructionBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2),0 8px 30px rgba(0, 0, 0, 0.19);
+  background: green;
+  color: white;
+}
+@keyframes animationPlayBtn{
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    background: green;
+    color: white;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media (max-width: 1024px) {
+  .playBtn,
+  .instructionBtn {
+    font-size: 30px;
+    width: 400px;
+    height: 80px;
+  }
+  .homeBtn,
+  .suddenDeathBtn {
+    font-size: 20px;
+    width: 250px;
+    height: 40px;
+  }
+}
+@media (max-width: 768px) {
+  .playBtn,
+  .instructionBtn {
+    font-size: 25px;
+    width: 300px;
+    height: 70px;
+  }
+  .homeBtn,
+  .suddenDeathBtn {
+    font-size: 18px;
+    width: 200px;
+    height: 35px;
+  }
+}
+@media (max-width: 480px) {
+  .playBtn,
+  .instructionBtn {
+    font-size: 20px;
+    width: 250px;
+    height: 60px;
+  }
+  .homeBtn,
+  .suddenDeathBtn {
+    font-size: 15px;
+    width: 180px;
+    height: 30px;
+  }
+}
+.instructionBtn:hover{
+  transform: scale(1.2);
+}
+.cardsBorder {
+  list-style: none;
+}
+.pOneBox{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  width: 75%;
+}
+.pTwoBox{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  width: 75%;
+}
+.playerOneCards {
+  display: flex;
+  padding:5px;
+  height: 100px;
+}
+@media(max-width: 796px){
+  .playerOneCards{
+    height: 6em;
+  }
+}
+.playerTwoCards{
+  display: flex;
+  padding:5px;
+  height: 100px;
+}
+@media(max-width:796px){
+  .playerTwoCards{
+    height: 6em;
+
+  }
+}
+.deck{
+  position: absolute;
+  right:0px;
+}
+.deckCard{
+  height:200px;
+}
+@media(max-width: 796px){
+  .deck{
+    position: absolute;
+    right: 10px;
+  }
+}
+@media(max-width:796px){
+  .deckCard{
+    height: 12em;
+  }
+}
+button{
+  cursor: pointer;
+}
+.suddenDeath{
+  font-size: 100px;
+  transition: transform 0.2s;
+  animation: suddenDeathAnimation 2s infinite;
+}
+@keyframes suddenDeathAnimation{
+  0%{
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(1.1);
+    color: red;
+  }
+  
+}
+.playerWon,.computerWon{
+  animation: animationWinner 2s infinite;
+}
+@keyframes animationWinner{
+  0%{
+    transform: scale(1)
+  }
+  100%{
+    transform:scale(1.4);
+    color: green;
+  }
+
+}

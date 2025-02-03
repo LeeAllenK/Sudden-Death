@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.instructions {
+font-family: "Inter", serif;
+	font-optical-sizing: auto;
+	font-size: 35px;
+	font-weight: 900;
+	font-style: normal;
+	line-height: 1.6;
+	color: #333;
+	margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+	.instructions {
+		font-size: 20px;
+	}
+}
