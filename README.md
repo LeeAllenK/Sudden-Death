@@ -1,5 +1,5 @@
 <div id="header" >
- <h1  class="heading-element" dir="auto">SUDDEN DEATH<a href="">Vist Here</a> </h1>
+ <h1  class="heading-element" dir="auto">SUDDEN DEATH<a href="https://suddendeath-fladev.netlify.app/">Vist Here</a> </h1>
  <img src=" alt="Sudden Death">
 
 </div>
@@ -12,7 +12,7 @@
 
 <div id="header" >
  <h1 class="heading-element" dir="auto">Optimizations:</h1>
- \
+ 
 </div>
 
 <div id="header">
