@@ -1,6 +1,6 @@
 <div id="header" >
  <h1  class="heading-element" dir="auto">SUDDEN DEATH<a href="https://suddendeath-fladev.netlify.app/">Vist Here</a> </h1>
- <img src="https://imgur.com/139fKL3" alt="Sudden Death">
+ <img src="https://i.imgur.com/139fKL3.gif" alt="Sudden Death">
 
 </div>
 
