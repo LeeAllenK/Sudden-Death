@@ -14,6 +14,12 @@ The name of the game is SUDDEN DEATH!! Each player is dealt 7 cards from a deck.
  <h1 class="heading-element" dir="auto">Optimizations:</h1>
  Currently this app doesn't have a sign-in page that will be my next task. I will ensure the game is playable across all playable devices. Although an amazing app not having a database to store game data will be priority. My final focus will be on building this app for mobile using React-Native. 
 </div>
+<div id="header" >
+ <h1 class="heading-element" dir="auto">Installation:</h1>
+ 1. git clone repo.<br/>
+2. npm install<br/>
+3. npm run dev
+</div>
 
 <div id="header">
  <h1 class="heading-element" dir="auto">Lessons Learned:</h1>
