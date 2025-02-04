@@ -246,7 +246,6 @@ export function Cards({ cards }) {
 			setIsSuddenDeath(!isSuddenDeath);
 			setEnableSuddenDeathPlayer(false);
 			setStop(false);
-			console.log('Player Wins');
 		}
 	};
 	const suddenDeath = () => {

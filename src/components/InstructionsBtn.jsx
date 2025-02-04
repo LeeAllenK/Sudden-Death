@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import '../instructions.css'
-export function InstructionsBtn({ value, instructions }) {
+export function InstructionsBtn({ value}) {
 	const [showInstructions, setShowInstructions] = useState(false);
 
 	const handleClick = () => {
-		setShowInstructions(true); // Show the instructions and hide the buttons
+		setShowInstructions(true);
 	};
 
 	return (

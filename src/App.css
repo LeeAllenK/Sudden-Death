@@ -98,13 +98,13 @@
 }
 @media (max-width: 768px) {
   .playBtn,
-  .instructionBtn {
+  .instructionBtn,.suddenDeath {
     font-size: 25px;
     width: 300px;
     height: 70px;
   }
   .homeBtn,
-  .suddenDeathBtn {
+  .suddenDeathBtn,.suddenDeath {
     font-size: 18px;
     width: 200px;
     height: 35px;
@@ -112,7 +112,7 @@
 }
 @media (max-width: 480px) {
   .playBtn,
-  .instructionBtn {
+  .instructionBtn,.suddenDeath {
     font-size: 20px;
     width: 250px;
     height: 60px;
