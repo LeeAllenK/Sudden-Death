@@ -38,7 +38,7 @@
   border: 1px solid black;
   border-radius: 40px;
   width: 300px;
-  height: 50px;
+  height: 40px;
   margin: 10px;
   background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
@@ -136,7 +136,6 @@
   width: 100%;
 
 }
-
 .pOneBox,
 .pTwoBox {
   display: -webkit-flex;
@@ -148,13 +147,12 @@
   width: 100%;
 
 }
-.pOneBox{
-  margin-bottom: 10px;
- 
-}
+.pOneBox,
 .pTwoBox{
   margin-top: 50px;
+ 
 }
+
 .playerOneCards,.playerTwoCards {
   display: flex;
   padding:2px;
@@ -177,44 +175,6 @@ width: 100%;
   font-size: 100px;
   transition: transform 0.2s;
   animation: suddenDeathAnimation 2s infinite;
-}
-
-@media (max-width: 1424px) {
-  .playBtn,
-  .instructionBtn,
-  .removeInstructionsBtn {
-    font-size: 1em;
-    width: 10em;
-    height: 1.5em;
-  }
-  .homeBtn,
-  .suddenDeathBtn {
-    font-size: 1em;
-    width: 10em;
-    height: 1.3em;
-  }
-  .playerOneCards,
-  .playerTwoCards {
-    height: 4em;
-  }
- .cardsBorder {
-   width: 100%;
- }
- .pOneBox,
- .pTwoBox {
-   margin: 1em;
-   width: 100%;
- }
-  .suddenDeath {
-      font-size: 2.8em;
-    }
-  .deckCard {
-    height: 6em;
-  }
- .instructions {
-   font-size: 0.7em;
-   padding: 0.4em;
- }
 }
 
 @media screen and (max-width: 1424px) and (orientation:landscape) {
@@ -257,6 +217,46 @@ width: 100%;
     width:80%;
  }
 }
+
+@media (max-width: 1480px) {
+  .playBtn,
+  .instructionBtn,
+  .removeInstructionsBtn {
+    font-size: 1em;
+    width: 10em;
+    height: 1.5em;
+  }
+  .homeBtn,
+  .suddenDeathBtn {
+    font-size: 1em;
+    width: 10em;
+    height: 1.3em;
+  }
+  .playerOneCards,
+  .playerTwoCards {
+    height: 4em;
+    width: 6%;
+  }
+ .cardsBorder {
+   width: 100%;
+ }
+ .pOneBox,
+ .pTwoBox {
+   margin: 1em;
+   width: 100%;
+ }
+  .suddenDeath {
+      font-size: 2.8em;
+    }
+  .deckCard {
+    height: 7em;
+  }
+ .instructions {
+   font-size: 0.7em;
+   padding: 0.4em;
+ }
+}
+
 @media (max-width: 768px) {
   .playBtn,
   .instructionBtn,
@@ -279,7 +279,7 @@ width: 100%;
       font-size: 1.3em;
    }
   .deckCard {
-    height: 1.5em;
+    height: 6em;
   }
  .cardsBorder {
    width: 100%;
