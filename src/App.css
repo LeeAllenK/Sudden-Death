@@ -159,6 +159,7 @@
   display: flex;
   padding:2px;
   height: 100px;
+  object-fit: cover;
 }
 
 .deckBorder{
@@ -199,7 +200,6 @@ width: 100%;
  .cardsBorder {
    width: 100%;
  }
-
  .pOneBox,
  .pTwoBox {
    margin: 1em;
@@ -214,6 +214,47 @@ width: 100%;
  .instructions {
    font-size: 0.7em;
    padding: 0.4em;
+ }
+}
+
+@media screen and (max-width: 1424px) and (orientation:landscape) {
+  .playBtn,
+  .instructionBtn,
+  .removeInstructionsBtn {
+    font-size: 1em;
+    width: 10em;
+    height: 1.5em;
+  }
+  .homeBtn,
+  .suddenDeathBtn {
+    font-size: 1em;
+    width: 10em;
+    height: 1.3em;
+  }
+  .playerOneCards,
+  .playerTwoCards {
+    height: 2em;
+    width: 8%;
+  }
+ .cardsBorder {
+   width: 90%;
+  overflow:hidden;
+ }
+ .pOneBox,
+ .pTwoBox {
+   margin: 1em;
+   width: 80%;
+ }
+  .suddenDeath {
+    font-size: 1.2em;
+    }
+  .deckCard {
+    height: 3.5em;
+  }
+ .instructions {
+    font-size: 0.5em;
+    padding: 0.4em;
+    width:80%;
  }
 }
 @media (max-width: 768px) {
@@ -238,7 +279,7 @@ width: 100%;
       font-size: 1.3em;
    }
   .deckCard {
-    height: 5.5em;
+    height: 1.5em;
   }
  .cardsBorder {
    width: 100%;
@@ -254,40 +295,47 @@ width: 100%;
    padding: 1em;
  }
 }
-@media(max-width: 668px) {
+/*Safari screen orientation*/
+@media screen and (max-width: 668px) and (orientation: landscape) {
+  .playerOneCards,
+  .playerTwoCards {
+    height: 2em;
+    padding: .05em;
+    width: 10%;
+  }
+  h2 {
+    font-size: 1em;
+  }
+  .homeBtn,
+  .suddenDeathBtn{
+    font-size: 0.7em;
+    height: 1.5em;
+  }
+  .deckCard {
+    height: 3.5em;
+  }
+  .cardsBorder {
+    width: 100%;
+    overflow:hidden;
+  }
+  .pOneBox,
+  .pTwoBox {
+    width: 80%;
+  }
   .playBtn,
   .instructionBtn,
   .removeInstructionsBtn {
     font-size: 1em;
-    width: 10em;
+    width: 9em;
     height: 1.5em;
+    margin: 0.1em;
   }
-  .homeBtn,
-  .suddenDeathBtn {
-    font-size: 0.7em;
-    width: 10em;
-    height: 1.5em;
-  }
- .cardsBorder {
-   width: 100%;
- }
-
-.pOneBox,
-.pTwoBox {
-  margin: 5px;
-  width: 100%;
-}
-  .playerOneCards,
-  .playerTwoCards {
-    height: 3em;   
-  }
-  .suddenDeath{
+  .suddenDeath {
     font-size: 1em;
   }
-
-  .deckCard {
-    height: 4.8em;
-  };
+  .instructions {
+    font-size: 0.5em;
+  }
 }
 
 @media (max-width: 480px) {
@@ -301,7 +349,7 @@ width: 100%;
     height: 15px;
   }
   .deckCard {
-    height: 35px;
+    height: 1px;
   }
     /* .playBtn,
     .instructionBtn,
@@ -331,7 +379,7 @@ width: 100%;
   font-size: 0.5em;
 }
 }
-/* PHONE SCREEN* still not applying after webkit */
+/* Safari */
 @media screen and (max-width: 480px) and (orientation: portrait) {
   .playerOneCards,
   .playerTwoCards {
@@ -348,18 +396,15 @@ width: 100%;
     height: 1.5em;
   }
   .deckCard {
-    height: 3em;
+    height: 6em;
   }
-
  .cardsBorder {
-   width: 100%;
-    
- }
-
+   width: 100%; 
+  }
  .pOneBox,
  .pTwoBox {
-   width: 80%;
- }
+   width: 50%;
+  }
   .playBtn,
   .instructionBtn,
   .removeInstructionsBtn {
@@ -368,17 +413,20 @@ width: 100%;
     height: 1.5em;
     margin: 0.1em;
   }
-
   .suddenDeath {
     font-size: 1em;
   }
+.instructions {
+  font-size: 0.5em;
 }
-@media screen and (max-width: 380px) and (orientation: portrait) {
+}
+/*Edge*/
+@media screen and (max-width: 1424px) and (orientation: portrait) {
   .playerOneCards,
   .playerTwoCards {
-    height: 2em;
+    height:2.5em;
     padding: .05em;
-    width: 20%;
+    width: 30%;
   }
   h2{
     font-size: 1em;
@@ -389,17 +437,15 @@ width: 100%;
     height: 1.5em;
   }
   .deckCard {
-    height: 3em;
+    height: 4em;
   }
 
  .cardsBorder {
-   width: 100%;
-    
+   width: 95%;
  }
-
  .pOneBox,
  .pTwoBox {
-   width: 80%;
+   width: 60%;
  }
   .playBtn,
   .instructionBtn,
