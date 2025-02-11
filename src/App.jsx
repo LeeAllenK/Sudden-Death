@@ -46,14 +46,11 @@ function App() {
   const handleClick = () => {
     setInstructions(true);
   }
-  const handleHome = () => {
-    setInstructions(false);
-  }
   return (
     <>
       {!play && !instructions ? (
         <div className='playBorder'>
-    <h1 className='suddenDeath'>SUDDEN DEATH</h1>
+    <h1 className='suddenDeath'>SUDDEN DEATH!</h1>
           <button
             className='playBtn'
             onClick={() => {

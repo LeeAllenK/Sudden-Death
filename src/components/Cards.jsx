@@ -255,11 +255,14 @@ export function Cards({ cards }) {
 		<>
 			<ul className='cardsBorder'>
 				{deathCards.map((card, i) => (
-					<img key={i} src={card.image} alt='Death Card' style={{ height: '100px' }} />
+					<img className='deathCards'key={i} src={card.image} alt='Death Card'/>
 				))}
-				<button className='suddenDeathBtn'onClick={suddenDeath} disabled={!enableSuddenDeathPlayer }>SUDDEN DEATH</button>
+				{enableSuddenDeathPlayer && 
+				<button className='suddenDeathBtn'onClick={suddenDeath} disabled={!enableSuddenDeathPlayer}>SUDDEN DEATH</button>
+				}
 				{player.one && player.two ? (
 					<>
+							
 						<div className='pOneBox'>
 							{player.one.length > 0 &&
 								player.one.map((card, i) => (
@@ -275,6 +278,7 @@ export function Cards({ cards }) {
 								<div className='computerWon'><h2>{winner}</h2></div>
 							)}
 						</div>
+					<div className='deckBorder'>
 						<li className='deck'>
 							{player.deck.length > 0 &&
 								<img
@@ -284,7 +288,9 @@ export function Cards({ cards }) {
 								/>
 							}
 						</li>
+					</div>
 						<div className='pTwoBox'>
+							{/* <div className='label'>Player1</div> */}
 							{player.two.length > 0 &&
 								player.two.map((card, i) => (
 									<li className='playerTwoCards' key={i}>
