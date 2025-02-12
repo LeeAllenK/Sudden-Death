@@ -587,7 +587,88 @@ width: 100%;
       padding: 0.4em;
     }
 }
-/*971*/
+@media(max-width:962px){
+  .playBtn,
+    .instructionBtn,
+    .removeInstructionsBtn {
+      font-size: 1em;
+      width: 10em;
+      height: 1.5em;
+    }
+    h2 {
+      font-size: 0.9em;
+    }
+    .homeBtn,
+    .suddenDeathBtn {
+      font-size: 1em;
+      width: 10em;
+      height: 1.3em;
+    }
+    .playerOneCards,
+    .playerTwoCards {
+      height: 4em;
+      width: 12.5%;
+    } 
+    .cardsBorder {
+      width: 97%;
+    }  
+    .pOneBox,
+    .pTwoBox {
+      margin: 1em;
+      width: 70%;
+    } 
+    .suddenDeath {
+      font-size: 2.8em;
+    }
+    .deckCard {
+      height: 7.7em;
+    }
+    .instructions {
+      font-size: 0.7em;
+      padding: 0.4em;
+    }
+}
+@media(max-width:900px){
+    .playBtn,
+    .instructionBtn,
+    .removeInstructionsBtn {
+      font-size: 1em;
+      width: 10em;
+      height: 1.5em;
+    }  
+    h2 {
+      font-size: 0.9em;
+    }
+    .homeBtn,
+    .suddenDeathBtn {
+      font-size: 1em;
+      width: 10em;
+      height: 1.3em;
+    }
+    .playerOneCards,
+    .playerTwoCards {
+      height: 4em;
+      width: 13%;
+    }
+    .cardsBorder {
+      width: 97%;
+    }
+    .pOneBox,
+    .pTwoBox {
+      margin: 1em;
+      width: 70%;
+    }
+    .suddenDeath {
+      font-size: 2.8em;
+    }
+    .deckCard {
+      height: 7.7em;
+    }
+    .instructions {
+      font-size: 0.7em;
+      padding: 0.4em;
+    }
+}
 @media (max-width: 768px) {
   .playBtn,
   .instructionBtn,
