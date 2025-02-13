@@ -46,35 +46,39 @@ function App() {
   const handleClick = () => {
     setInstructions(true);
   }
+  useEffect(() => {
+    document.body.className = play ? 'play-mode' : 'default-mode';
+  }, [play]);
+
   return (
-    <>
+    <div className="appScreen">
       {!play && !instructions ? (
         <div className='playBorder'>
-    <h1 className='suddenDeath'>SUDDEN DEATH!</h1>
+          <h1 className='suddenDeath'>SUDDEN DEATH!</h1>
           <button
             className='playBtn'
-            onClick={() => {
-              setPlay(p => !p)
-            }}>Play</button>
+            onClick={() => setPlay(p => !p)}
+          >
+            Play
+          </button>
           <InstructionsBtn onClick={handleClick} value='Instructions' />
         </div>
       ) : (
         <>
-          {!instructions &&
+          {!instructions && (
             <>
               <button
                 className='homeBtn'
-                onClick={() => {
-                  setPlay(p => !p)
-                }}
-              >Home</button>
+                onClick={() => setPlay(p => !p)}
+              >
+                Home
+              </button>
               <Cards cards={cards} />
             </>
-          }
+          )}
         </>
       )}
-    </>
-  )
-}
+    </div>
+  );
+};
 export default App;
-
