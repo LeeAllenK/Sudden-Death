@@ -271,6 +271,7 @@ export function Game({ cards }) {
 	};
 	const suddenDeath = () => {
 		setIsSuddenDeath(!isSuddenDeath);
+
 	};
 	return (
 		<>
@@ -285,7 +286,7 @@ export function Game({ cards }) {
 				</div>
 				{enableSuddenDeathPlayer && 
 				<div className='sdBtn-border'>
-				<button className='suddenDeathBtn'onClick={suddenDeath} disabled={!enableSuddenDeathPlayer}>SUDDEN DEATH</button>
+				<button className='suddenDeathBtn'onClick={suddenDeath} disabled={isSuddenDeath}>SUDDEN DEATH</button>
 				</div>
 				}
 				{player.one && player.two ? (
@@ -293,7 +294,7 @@ export function Game({ cards }) {
 						<div className='pOneBox'>
 							{player.one.length > 0 &&
 								player.one.map((card, i) => (
-									<li className='playerOneCards' key={i}>
+									<li className='playerOneCards' key={card.image}>
 										<img
 											alt='Card Image'
 											src={isSuddenDeath && !deathCards[0] || back? backOfCard : card.image}
@@ -320,7 +321,7 @@ export function Game({ cards }) {
 							{/* <div className='label'>Player1</div> */}
 							{player.two.length > 0 &&
 								player.two.map((card, i) => (
-									<li className='playerTwoCards' key={i}>
+									<li className='playerTwoCards' key={card.image}>
 										<input
 											type='image'
 											alt='Card Image'

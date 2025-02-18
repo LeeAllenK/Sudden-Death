@@ -225,7 +225,8 @@ width: 100%;
 @media screen and (max-width: 1424px) and (orientation:landscape) {
   .playBtn,
   .instructionBtn,
-  .removeInstructionsBtn {
+  .removeInstructionsBtn,
+  .leaderboardBtn {
     font-size: 1em;
     width: 10em;
     height: 1.5em;
@@ -266,7 +267,8 @@ width: 100%;
 @media (max-width: 1480px) {
   .playBtn,
   .instructionBtn,
-  .removeInstructionsBtn {
+  .removeInstructionsBtn,
+  .leaderboardBtn {
     font-size: 1.5em;
     width: 10em;
     height: 1.5em;
@@ -307,7 +309,8 @@ width: 100%;
 @media(max-width:1424px) and (min-width:1350px){
   .playBtn,
   .instructionBtn,
-  .removeInstructionsBtn {
+  .removeInstructionsBtn,
+  .leaderboardBtn {
     font-size: 1em;
     width: 10em;
     height: 1.5em;
@@ -348,7 +351,8 @@ width: 100%;
 @media(max-width:1349px) and (min-width:1270px){
   .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -389,7 +393,8 @@ width: 100%;
 @media(max-width:1269px) and (min-width:1200px){
     .playBtn,
       .instructionBtn,
-      .removeInstructionsBtn {
+      .removeInstructionsBtn,
+      .leaderboardBtn {
         font-size: 1em;
         width: 10em;
         height: 1.5em;
@@ -430,7 +435,8 @@ width: 100%;
 @media(max-width:1199px){
       .playBtn,
       .instructionBtn,
-      .removeInstructionsBtn {
+      .removeInstructionsBtn,
+      .leaderboardBtn {
         font-size: 1em;
         width: 10em;
         height: 1.5em;
@@ -471,7 +477,8 @@ width: 100%;
 @media(max-width:1168px){
     .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn{
+    .removeInstructionsBtn,
+    .leaderboardBtn{
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -512,7 +519,8 @@ width: 100%;
 @media(max-width:1134px){
     .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -553,7 +561,8 @@ width: 100%;
 @media(max-width:1099){
 .playBtn,
   .instructionBtn,
-  .removeInstructionsBtn {
+  .removeInstructionsBtn,
+  .leaderboardBtn {
     font-size: 1em;
     width: 10em;
     height: 1.5em;
@@ -594,7 +603,8 @@ width: 100%;
 @media(max-width:999px){
   .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -635,7 +645,8 @@ width: 100%;
 @media(max-width:962px){
   .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -676,7 +687,8 @@ width: 100%;
 @media(max-width:900px){
     .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -717,7 +729,8 @@ width: 100%;
 @media(max-width:879px){
     .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -758,7 +771,8 @@ width: 100%;
 @media(max-width:852px){
     .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1em;
       width: 10em;
       height: 1.5em;
@@ -799,7 +813,8 @@ width: 100%;
 @media (max-width: 797px) {
   .playBtn,
   .instructionBtn,
-  .removeInstructionsBtn{
+  .removeInstructionsBtn,
+  .leaderboardBtn{
     font-size: 1.1em;
     width: 9em;
     height: 1.4em;
@@ -838,7 +853,8 @@ width: 100%;
 @media screen and (max-width: 668px) and (orientation: landscape) {
     .playBtn,
     .instructionBtn,
-    .removeInstructionsBtn {
+    .removeInstructionsBtn,
+    .leaderboardBtn {
       font-size: 1.1em;
       width: 9em;
       height: 1.4em;
@@ -942,7 +958,8 @@ width: 100%;
   }
   .playBtn,
   .instructionBtn,
-  .removeInstructionsBtn {
+  .removeInstructionsBtn,
+    .leaderboardBtn {
     font-size: 1em;
     width: 9em;
     height: 1.5em;
@@ -984,7 +1001,8 @@ width: 100%;
  }
   .playBtn,
   .instructionBtn,
-  .removeInstructionsBtn {
+  .removeInstructionsBtn,
+    .leaderboardBtn {
     font-size: 1em;
     width: 9em;
     height: 1.5em;
