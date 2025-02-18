@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import {Clock} from './Clock';
 const backOfCard = `https://www.deckofcardsapi.com/static/img/back.png`;
 
 function cardValue(card) {
@@ -30,7 +30,7 @@ function cardSuit(card) {
 			return parseInt(card.suit);
 	}
 }
-export function Cards({ cards }) {
+export function Game({ cards }) {
 
 	const [deck, setDeck] = useState(backOfCard);
 	const [isSuddenDeath, setIsSuddenDeath] = useState(false);
@@ -44,19 +44,28 @@ export function Cards({ cards }) {
 		two: [],
 		deck: []
 	});
+	const [back,setBack]= useState(false);
 	useEffect(() => {
+
 		const showPlayers = () => {
 			const playerOne = cards.slice(0, 7);
-			const playerTwo = cards.slice(7, 14 );
-			const deck = cards.slice(14, cards.length);
+			const playerTwo = cards.slice(7, 14);
+			const deck = cards.slice(15, cards.length);
 			setPlayer({ one: playerOne, two: playerTwo, deck: deck });
-		};;
+			setBack(true)
+		};
+		const flipBack = setTimeout(() => {
+			setBack(false)
+		}, 600)
+
+		setEnableSuddenDeathPlayer(false)
 		showPlayers();
+		return () => clearTimeout(flipBack)
 	}, [cards]);
 
 	useEffect(() => {
 		const flipCard = () => {
-			if(player.deck.length > 0) {
+			if(player.deck.length > 0 && !back) {
 				setDeck(player.deck[0].image);
 				setDisable(false);
 			}
@@ -76,7 +85,7 @@ export function Cards({ cards }) {
 			flipCard()
 		}
 		return () => clearInterval(interval);
-	}, [player.two, player.deck, stop, isSuddenDeath, disable]);
+	}, [player.two, player.deck, stop, isSuddenDeath, disable,back]);
 
 	function handlePlayerTwo(card, i) {
 		const value = cardValue(card);
@@ -143,6 +152,12 @@ export function Cards({ cards }) {
 			if(deckCard) {
 				if(player.one.length > 0 && !isSuddenDeath) {
 					setPlayer(prev => {
+						if(player.one.length === player.two.length && player.deck.length === 0){
+							return{
+								...prev,
+								one: prev.one.slice(1)
+							}
+						}
 						const findCard = player.one.find((card) => (cardValue(card) + cardSuit(card)) > (cardValue(deckCard) + cardSuit(deckCard)))
 						player.one.some((card, i, arr) => {
 							if((cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)) && arr.every((card) => (cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)))) {
@@ -162,7 +177,8 @@ export function Cards({ cards }) {
 					});
 				}
 			}	
-			if(isSuddenDeath && deathCards.length < 1 && !stop) {
+			if(isSuddenDeath && deathCards.length <= 0 && !stop) {
+				if(player.one.length > 0){
 				const maxCardValue = Math.max(...player.one.map(card => cardValue(card) + cardSuit(card)));
 				const maxCard = player.one.find(card => cardValue(card) + cardSuit(card) === maxCardValue);
 				const updatedDeathCards = [maxCard, ...deathCards];
@@ -174,15 +190,15 @@ export function Cards({ cards }) {
 						one: updatedPlayerOneHand
 					};
 				});
+				}
 			}
-		}, 2500);
+		}, 1550);
 		if(player.deck.length > 0 && !isSuddenDeath) {
 			if(player.one.length === 0 && player.deck.length >= 0) {
 				setWinner('COMPUTER WINS!');
 				setDisable(true)
 				console.log('COMPUTER WON');
-			}
-			if(player.two.length === 0 && player.deck.length >= 0) {
+			}else if(player.two.length === 0 && player.deck.length >= 0) {
 				setWinner('YOU WIN!');
 				clearTimeout(playerOneTurn)
 				console.log('PLAYER WON');
@@ -223,6 +239,7 @@ export function Cards({ cards }) {
 		const valueTwo = cardValue(cardTwo);
 		const valueTwoSuit = cardSuit(cardTwo);
 		if((valueOne + valueOneSuit) > (valueTwo + valueTwoSuit)) {
+			setTimeout(() => {
 			setPlayer((prev) => {
 				return {
 					...prev,
@@ -231,12 +248,15 @@ export function Cards({ cards }) {
 					deck: prev.deck
 				};
 			});
+
 			setDeathCards(deathCards.slice(2));
 			setIsSuddenDeath(!isSuddenDeath);
+			},1000)
 			setEnableSuddenDeathPlayer(false);
-			setStop(false)
+			setStop(false);
 			console.log('Computer Wins');
 		} else if((valueOne + valueOneSuit) < (valueTwo + valueTwoSuit)) {
+			setTimeout(()=> {
 			setPlayer((prev) => ({
 				...prev,
 				one: [...prev.one, ...deathCards],
@@ -244,6 +264,7 @@ export function Cards({ cards }) {
 			}));
 			setDeathCards(deathCards.slice(2));
 			setIsSuddenDeath(!isSuddenDeath);
+			},1000)
 			setEnableSuddenDeathPlayer(false);
 			setStop(false);
 		}
@@ -254,22 +275,28 @@ export function Cards({ cards }) {
 	return (
 		<>
 			<ul className='cardsBorder'>
+			{player.one && player.two && player.deck &&
+				<div className='Clock'><Clock winner={winner}/></div>
+			}
+				<div className='deathCards-border'>
 				{deathCards.map((card, i) => (
 					<img className='deathCards'key={i} src={card.image} alt='Death Card'/>
 				))}
+				</div>
 				{enableSuddenDeathPlayer && 
+				<div className='sdBtn-border'>
 				<button className='suddenDeathBtn'onClick={suddenDeath} disabled={!enableSuddenDeathPlayer}>SUDDEN DEATH</button>
+				</div>
 				}
 				{player.one && player.two ? (
 					<>
-							
 						<div className='pOneBox'>
 							{player.one.length > 0 &&
 								player.one.map((card, i) => (
 									<li className='playerOneCards' key={i}>
 										<img
 											alt='Card Image'
-											src={isSuddenDeath && !deathCards[0] ? backOfCard : card.image}
+											src={isSuddenDeath && !deathCards[0] || back? backOfCard : card.image}
 										/>
 									</li>
 								))
@@ -297,13 +324,13 @@ export function Cards({ cards }) {
 										<input
 											type='image'
 											alt='Card Image'
-											src={isSuddenDeath && !deathCards[1] ? backOfCard : card.image}
+											src={isSuddenDeath && !deathCards[1] || back? backOfCard : card.image}
 											onClick={() => handlePlayerTwo(card, i)}
 											disabled={
 												disable ||
-												player.deck.length === 0 ||
-												player.one.length === 0 ||
-												(isSuddenDeath && !deathCards[0])
+												// player.deck.length === 0 ||
+												// player.one.length === 0 ||
+												(isSuddenDeath && deathCards.length < 1)
 											}
 										/>
 									</li>

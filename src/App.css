@@ -8,6 +8,7 @@
   font-family: "Inter", serif;
   font-weight: 900;
   font-size: 25px;
+  color: black;
 }
 html,
 body {
@@ -15,6 +16,16 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
+}
+.cardsBorder {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 100%;
 }
 h1{
   display:flex;
@@ -51,6 +62,10 @@ h1{
   align-items: center;
   height: 100vh;
 }
+.sdBtn-border{
+  display:flex;
+  justify-content: center;
+}
 .homeBtn,.suddenDeathBtn{
   color: black;
   font-family: "Inter", serif;
@@ -68,6 +83,10 @@ h1{
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
+.suddenDeathBtn{
+  display:flex;
+  justify-content:center;
+}
 .homeBtn {
   position: absolute;
   left: 20px;
@@ -84,7 +103,8 @@ h1{
   background: red;
 }
 .playBtn,
-.instructionBtn{
+.instructionBtn,
+.leaderboardBtn{
   font-family: inherit;
   font-optical-sizing: auto;
   font-size: 40px;
@@ -101,7 +121,8 @@ h1{
   transition: transform 0.2s;
   color:black;
 }
-.removeInstructionsBtn {
+.removeInstructionsBtn,
+.backBtn {
   font-family: "Inter", serif;
   font-optical-sizing: auto;
   font-size: 40px;
@@ -121,8 +142,21 @@ h1{
 .playBtn{
   animation: animationPlayBtn 2s infinite;
 }
+.Clock{
+  width: 100%
+}
+.clock {
+  display: flex;
+  justify-content: flex-end;
+}
+.deathCards-border{
+  display:flex;
+  flex-direction:row;
+}
 .removeInstructionsBtn:hover,
-.instructionBtn:hover {
+.instructionBtn:hover,
+.leaderboardBtn:hover,
+.backBtn:hover{
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2),0 8px 30px rgba(0, 0, 0, 0.19);
   background: green;
@@ -149,29 +183,13 @@ h1{
   font-weight: bold;
   margin-bottom: 10px;
 }
-.cardsBorder {
-  display: -webkit-flex;
-  /* Safari */
-  display: flex;
-  flex-direction: column;
-  -webkit-align-items: center;
-  /* Safari */
-  align-items: center;
-  -webkit-justify-content: center;
-  /* Safari */
-  justify-content: center;
-  width: 100%;
-}
 .pOneBox,
 .pTwoBox {
   display: -webkit-flex;
-  /* Safari */
   display: flex;
   -webkit-flex-wrap: wrap;
-  /* Safari */
   flex-wrap: wrap;
   width: 100%;
-
 }
 .pOneBox,
 .pTwoBox{
@@ -879,6 +897,7 @@ width: 100%;
       font-size: 30px;
     }  */
   .deathCards{
+    position: relative;
     height: 70px;
     width: 52.5px;
   }
@@ -1046,4 +1065,10 @@ button{
     justify-content: center;
     align-items: center;
 
+}
+.leaderboard{
+  list-style: none;
+}
+.leaderboard-title{
+  font-size:40px;
 }
