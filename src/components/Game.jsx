@@ -50,7 +50,7 @@ export function Game({ cards }) {
 		const showPlayers = () => {
 			const playerOne = cards.slice(0, 7);
 			const playerTwo = cards.slice(7, 14);
-			const deck = cards.slice(15, cards.length);
+			const deck = cards.slice(14, cards.length);
 			setPlayer({ one: playerOne, two: playerTwo, deck: deck });
 			setBack(true)
 		};
@@ -150,9 +150,9 @@ export function Game({ cards }) {
 		const deckCard = player.deck[0];
 		const playerOneTurn = setTimeout(() => {
 			if(deckCard) {
-				if(player.one.length > 0 && !isSuddenDeath) {
+				if(!isSuddenDeath || player.deck.length === 0) {
 					setPlayer(prev => {
-						if(player.one.length === player.two.length && player.deck.length === 0){
+						if(player.one.length === player.two.length){
 							return{
 								...prev,
 								one: prev.one.slice(1)
@@ -205,7 +205,6 @@ export function Game({ cards }) {
 			}
 		}
 		if(player.deck.length === 0 && !isSuddenDeath) {
-			console.log('zero')
 			if(player.one.length < player.two.length) {
 				setWinner('COMPUTER WINS!');
 				setDisable(true);
@@ -224,7 +223,7 @@ export function Game({ cards }) {
 			}
 		}
 		return () => clearTimeout(playerOneTurn);
-	}, [player.one, player.two, player.deck, stop, isSuddenDeath, enableSuddenDeathPlayer, winner]);
+	}, [player.one, player.two, player.deck, stop, isSuddenDeath, enableSuddenDeathPlayer, winner,disable]);
 	useEffect(() => {
 		if(deathCards.length === 2 && isSuddenDeath && stop) {
 			compareDeathCards();
