@@ -34,10 +34,14 @@ export function Clock({winner}){
 					},
 					body: JSON.stringify(newTime)
 				})
+				if(!res.ok) {
+					throw new Error('Network response was not ok');
+				}
 				const data = await res.json();
 				console.log(data)
 			}catch(err){
 				console.error(err)
+				alert('Error has occured')
 			}
 		}
 		useEffect(() =>{

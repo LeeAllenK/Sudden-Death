@@ -47,6 +47,9 @@ h1{
   height: 100px;
   width: 75px
 }
+.stats{
+  font-size:20px;
+}
 .instructions {
   font-size: 20px;
   padding: 20px;
@@ -1007,6 +1010,13 @@ width: 100%;
     width: 9em;
     height: 1.5em;
     margin: 0.1em;
+  }
+  .backBtn{
+    width:80%;
+  }
+  .stats{
+    color:black;
+    font-size:20px;
   }
   .suddenDeath {
     font-size: 1em;

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Game } from './components/Game';
 import { InstructionsBtn } from './components/InstructionsBtn';
-import { Clock } from './components/Clock';
 import './App.css';
 
 function App() {
@@ -48,7 +47,7 @@ function App() {
   useEffect(() => {
       const fetchTimes = async () => {
         try {
-          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/times`);
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/stats`);
           if(!res.ok) {
             throw new Error('no response');
           }
@@ -77,25 +76,16 @@ function App() {
     const timeB = b.time.split(':').reduce((acc, time) => (60 * acc) + +time);
     return timeA - timeB;
   });
-
-  {
-    sortedLeaders.map((lead, i) => (
-      <li key={lead._id}>
-        {lead.text} {' '} {lead.time}
-      </li>
-    ))
-  }
-
   return (
   <>
     <div className="appScreen">
       {leaderboards ? (
         <div className='leaderboardScreen'>
-          <p className='leaderboard-title'>Leaderboards</p>
+          <p className='leaderboard-title'>Leaderboard</p>
             <ul className='leaderboard'>
               {sortedLeaders.map((lead,i) => (
-                <li key={lead._id}>
-                 {lead.text}{' '}{lead.time}
+                <li className='stats' key={lead._id}>
+                 {lead.text.toUpperCase()}{' '}{lead.time}
                 </li>
               ))}
             </ul>
@@ -119,7 +109,7 @@ function App() {
             className='leaderboardBtn'
             onClick={() => setLeaderboards(lb => !lb)}
           >
-            Leaderboards
+            Leaderboard
           </button>
           <InstructionsBtn onClick={handleClick} value='Instructions' />
         </div>
