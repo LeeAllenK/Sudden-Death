@@ -1,11 +1,11 @@
 import {useState,useEffect} from 'react'
 import {Username} from './Username'
-
+import {HomeBtn} from './Home-Btn'
 export function Clock({winner}){
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
 	const [username, setUsername] = useState('');
-	
+	const [play, setPlay] = useState(false)
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setSeconds((prevSeconds) => {
@@ -23,7 +23,6 @@ export function Clock({winner}){
 		if(winner.length > 0) {
 			clearInterval(timer);
 		}
-
 		return () => clearInterval(timer);
 	}, [seconds, minutes, winner]);
 
@@ -60,8 +59,7 @@ export function Clock({winner}){
 			{winner.includes('YOU WIN!') && username.length < 3 &&
 			<Username setUsername={setUsername} />
 			}
-			
-		<h3 className='flex  lg:text-6xl' value={winner}>{minutes < 10 ? '0'+minutes: minutes} : {seconds < 10 ? '0'+ seconds : seconds}</h3>
+		<h3 className='flex  text-white lg:text-4xl' value={winner}>{minutes < 10 ? '0'+ minutes: minutes} : {seconds < 10 ? '0'+ seconds : seconds}</h3>
 		</div>
 	)
 }

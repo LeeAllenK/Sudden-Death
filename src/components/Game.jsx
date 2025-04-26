@@ -274,11 +274,11 @@ export function Game({ cards }) {
 	};
 	return (
 		<>
-			<ul className='flex flex-col justify-center items-center lg:w-screen'>
+			<ul className='flex flex-col justify-center items-center lg:h-screen lg:w-screen '>
 			{player.one && player.two && player.deck &&
-					<div className='flex lg:w-400 justify-end'><Clock winner={winner}/></div>
+					<div className='flex lg:w-300 justify-end'><Clock winner={winner}/></div>
 			}
-				<div className='flex justify-center '>
+				<div className='flex justify-center lg:h-40'>
 				{deathCards.map((card, i) => (
 					<img className='lg:h-40'key={i} src={card.image} alt='Death Card'/>
 				))}
@@ -290,12 +290,12 @@ export function Game({ cards }) {
 				}
 				{player.one && player.two ? (
 					<>
-						<div className='flex  flex-row flex-wrap lg:w-250 justify-center mt-5'>
-							{player.one.length > 0 &&
+						<div className='flex  flex-row flex-wrap lg:w-200 justify-start mt-2 lg:h-40'>
+							{player.one.length > 0 && winner.length === 0 &&
 								player.one.map((card, i) => (
 									<li className='playerOneCards' key={card.image}>
 										<img
-											className='lg:h-40'
+											className='lg:h-25'
 											alt='Card Image'
 											src={isSuddenDeath && !deathCards[0] || back? backOfCard : card.image}
 										/>
@@ -303,26 +303,26 @@ export function Game({ cards }) {
 								))
 							}
 							{winner === 'COMPUTER WINS!'&& (
-								<div className='computerWon'><h2>{winner}</h2></div>
+								<div className='text-8xl animate-bounce '><h2 >{winner}</h2></div>
 							)}
 						</div>
-					<div className='flex justify-end w-screen h-60'>
+					<div className='flex justify-end items-center lg:w-300 lg:h-40 '>
 						<li className='flex '>
 							{player.deck.length > 0 &&
 								<img
-									className='lg:h-60'
+									className='lg:h-40'
 									alt='Card Image'
 									src={deck}
 								/>
 							}
 						</li>
 					</div>
-						<div className='flex flex-row flex-wrap lg:w-250 justify-center'>
-							{player.two.length > 0 &&
+						<div className='flex flex-row flex-wrap lg:h-40 lg:w-200 justify-start'>
+							{player.two.length > 0 && winner.length === 0 &&
 								player.two.map((card, i) => (
 									<li className='' key={card.image}>
 										<input
-											className='lg:h-40'
+											className='lg:h-25'
 											type='image'
 											alt='Card Image'
 											src={isSuddenDeath && !deathCards[1] || back? backOfCard : card.image}
@@ -333,7 +333,7 @@ export function Game({ cards }) {
 								))
 							}
 							{winner === 'YOU WIN!' && (
-								<h2 className='playerWon'><br/>{winner}</h2>
+								<h2 className='text-8xl animate-bounce'><br/>{winner}</h2>
 							)}
 
 						</div>

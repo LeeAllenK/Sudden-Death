@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Game } from './components/Game';
+import { HomeBtn } from './components/Home-Btn';
 import { InstructionsBtn } from './components/InstructionsBtn';
 // import './App.css';
 
@@ -78,7 +79,7 @@ function App() {
   });
   return (
   <>
-    <div className="flex flex-col items-center justify-center h-screen lg:w-screen font-bold">
+    <div className="flex flex-col items-center justify-center h-screen lg:w-screen font-bold p-10">
       {leaderboards ? (
         <div className='leaderboardScreen'>
           <p className='leaderboard-title'>Leaderboard</p>
@@ -117,14 +118,7 @@ function App() {
         <>
           {!instructions && (
           <>
-            <div className='flex justify-start lg:w-screen' >
-              <button
-                        className='flex justify-center items-center lg:w-60 lg:h-15  rounded-full ml-10 cursor-pointer bg-black text-black font-bold lg:text-4xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(230,86,86)] to-[#ff0000] shadow-[0_4px_3px_#ff0000] hover:animate-pulse '
-                onClick={() => setPlay(p => !p)}
-              >
-                Home
-              </button>
-            </div>
+            <HomeBtn onClick={ ()=> setPlay(p=>!p)} />
               <Game cards={cards} />
           </>
           )}
