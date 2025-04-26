@@ -6,22 +6,27 @@ export function Clock({winner}){
 	const [minutes, setMinutes] = useState(0);
 	const [username, setUsername] = useState('');
 	
-	useEffect(()=>{
-		const timer = setInterval(()=>{
-			setSeconds(seconds +1)
-			if(seconds > 58){
-				setSeconds(0);
-				setMinutes(minutes+1)
-			}
-		},1000)
-			if(minutes === 99 && seconds === 59){
-				clearInterval(timer);
-			}
-		if(winner.length > 0){
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setSeconds((prevSeconds) => {
+				if(prevSeconds > 58) {
+					setMinutes((prevMinutes) => prevMinutes + 1);
+					return 0;
+				}
+				return prevSeconds + 1;
+			});
+		}, 1000);
+
+		if(minutes === 99 && seconds === 59) {
 			clearInterval(timer);
 		}
+		if(winner.length > 0) {
+			clearInterval(timer);
+		}
+
 		return () => clearInterval(timer);
-	},[seconds])
+	}, [seconds, minutes, winner]);
+
 		const saveTime = async (username, minutes,seconds)=>{
 			const time = `${minutes < 10 ? '0' + minutes : minutes } : ${ seconds < 10 ? '0' + seconds : seconds }`
 			const newTime = {time, text:username}
@@ -49,14 +54,14 @@ export function Clock({winner}){
 				saveTime(username,minutes,seconds)
 			}
 				console.log('WINNER',winner)
-		},[winner,username])
+		},[winner,username,minutes,seconds])
 	return(
-		<div>
+		<div className='flex justify-end'>
 			{winner.includes('YOU WIN!') && username.length < 3 &&
 			<Username setUsername={setUsername} />
 			}
 			
-		<h3 className='clock' value={winner}>{minutes < 10 ? '0'+minutes: minutes} : {seconds < 10 ? '0'+ seconds : seconds}</h3>
+		<h3 className='flex  lg:text-6xl' value={winner}>{minutes < 10 ? '0'+minutes: minutes} : {seconds < 10 ? '0'+ seconds : seconds}</h3>
 		</div>
 	)
 }

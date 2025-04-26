@@ -30,9 +30,9 @@ body {
 h1{
   display:flex;
 }
-.default-mode {
+/* .default-mode {
   background-color: white;
-}
+} */
 .play-mode {
   background-color: green;
 }
@@ -162,7 +162,7 @@ h1{
 .backBtn:hover{
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2),0 8px 30px rgba(0, 0, 0, 0.19);
-  background: green;
+  background: #383636;
   color: white;
 }
 @keyframes animationPlayBtn{

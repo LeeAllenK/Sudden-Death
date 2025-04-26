@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Game } from './components/Game';
 import { InstructionsBtn } from './components/InstructionsBtn';
-import './App.css';
+// import './App.css';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -26,7 +26,6 @@ function App() {
       getDeck();
     }
   }, [play]);
-
   useEffect(() => {
     const start = async () => {
       if(!deckId) return;
@@ -62,13 +61,14 @@ function App() {
         fetchTimes();
       }
   }, [leaderboards]);
+  console.log('VITE',import.meta.env.VITE_API_URL);
 
   const handleClick = () => {
     setInstructions(true);
   };
 
   useEffect(() => {
-    document.body.className = play ? 'play-mode' : 'default-mode';
+    document.body.className = play ? ' bg-[#383636]' : 'bg-black';
   }, [play]);
 
   const sortedLeaders = leaders.sort((a, b) => {
@@ -78,7 +78,7 @@ function App() {
   });
   return (
   <>
-    <div className="appScreen">
+    <div className="flex flex-col items-center justify-center h-screen lg:w-screen font-bold">
       {leaderboards ? (
         <div className='leaderboardScreen'>
           <p className='leaderboard-title'>Leaderboard</p>
@@ -97,16 +97,16 @@ function App() {
           </button>
         </div>
       ) : !play && !instructions ? (
-        <div className='playBorder'>
-          <h1 className='suddenDeath'>SUDDEN DEATH!</h1>
+        <div className='flex flex-col items-center justify-evenly h-screen p-1 '>
+              <h1 className='lg:text-8xl lg:font-bold text-red-700 cursor:pointer animate-pulse'>SUDDEN DEATH!</h1>
           <button
-            className='playBtn'
+                className='flex justify-center items-center border lg:text-7xl lg:border-4 lg:screen lg:rounded-full lg:h-30 lg:w-200 active:translate-y-2 cursor-pointer bg-black text-red-700 hover:animate-pulse'
             onClick={() => setPlay(p => !p)}
           >
             Play
           </button>
           <button
-            className='leaderboardBtn'
+                className='flex justify-center items-center border lg:text-7xl lg:border-4 lg:screen lg:rounded-full lg:h-30 lg:w-200 active:translate-y-2 cursor-pointer bg-black text-red-700 hover:animate-pulse'
             onClick={() => setLeaderboards(lb => !lb)}
           >
             Leaderboard
@@ -116,15 +116,17 @@ function App() {
       ) : (
         <>
           {!instructions && (
-            <>
+          <>
+            <div className='flex justify-start lg:w-screen' >
               <button
-                className='homeBtn'
+                        className='flex justify-center items-center lg:w-60 lg:h-15  rounded-full ml-10 cursor-pointer bg-black text-black font-bold lg:text-4xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(230,86,86)] to-[#ff0000] shadow-[0_4px_3px_#ff0000] hover:animate-pulse '
                 onClick={() => setPlay(p => !p)}
               >
                 Home
               </button>
+            </div>
               <Game cards={cards} />
-            </>
+          </>
           )}
         </>
       )}

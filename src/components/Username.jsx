@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function Username({ saveUsername, setUsername }) {
+export function Username({setUsername }) {
 	const [inputUsername, setInputUsername] = useState('');
 
 	return (

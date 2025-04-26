@@ -227,7 +227,7 @@ export function Game({ cards }) {
 	useEffect(() => {
 		if(deathCards.length === 2 && isSuddenDeath && stop) {
 			compareDeathCards();
-			setDisable(true)
+			setDisable(sd => !sd)
 			console.log('s', stop)
 		}
 	}, [deathCards, isSuddenDeath, disable, stop]);
@@ -274,27 +274,28 @@ export function Game({ cards }) {
 	};
 	return (
 		<>
-			<ul className='cardsBorder'>
+			<ul className='flex flex-col justify-center items-center lg:w-screen'>
 			{player.one && player.two && player.deck &&
-				<div className='Clock'><Clock winner={winner}/></div>
+					<div className='flex lg:w-400 justify-end'><Clock winner={winner}/></div>
 			}
-				<div className='deathCards-border'>
+				<div className='flex justify-center '>
 				{deathCards.map((card, i) => (
-					<img className='deathCards'key={i} src={card.image} alt='Death Card'/>
+					<img className='lg:h-40'key={i} src={card.image} alt='Death Card'/>
 				))}
 				</div>
-				{enableSuddenDeathPlayer && 
-				<div className='sdBtn-border'>
-				<button className='suddenDeathBtn'onClick={suddenDeath} disabled={isSuddenDeath}>SUDDEN DEATH</button>
+				{enableSuddenDeathPlayer && deathCards.length <= 0 && 
+				<div className='flex justify-center '>
+				<button className='border-2 rounded-full lg:w-100 lg:h-10 bg-black text-red-700 text-3xl'onClick={suddenDeath} disabled={isSuddenDeath }>SUDDEN DEATH</button>
 				</div>
 				}
 				{player.one && player.two ? (
 					<>
-						<div className='pOneBox'>
+						<div className='flex  flex-row flex-wrap lg:w-250 justify-center mt-5'>
 							{player.one.length > 0 &&
 								player.one.map((card, i) => (
 									<li className='playerOneCards' key={card.image}>
 										<img
+											className='lg:h-40'
 											alt='Card Image'
 											src={isSuddenDeath && !deathCards[0] || back? backOfCard : card.image}
 										/>
@@ -305,33 +306,28 @@ export function Game({ cards }) {
 								<div className='computerWon'><h2>{winner}</h2></div>
 							)}
 						</div>
-					<div className='deckBorder'>
-						<li className='deck'>
+					<div className='flex justify-end w-screen h-60'>
+						<li className='flex '>
 							{player.deck.length > 0 &&
 								<img
-									className='deckCard'
+									className='lg:h-60'
 									alt='Card Image'
 									src={deck}
 								/>
 							}
 						</li>
 					</div>
-						<div className='pTwoBox'>
-							{/* <div className='label'>Player1</div> */}
+						<div className='flex flex-row flex-wrap lg:w-250 justify-center'>
 							{player.two.length > 0 &&
 								player.two.map((card, i) => (
-									<li className='playerTwoCards' key={card.image}>
+									<li className='' key={card.image}>
 										<input
+											className='lg:h-40'
 											type='image'
 											alt='Card Image'
 											src={isSuddenDeath && !deathCards[1] || back? backOfCard : card.image}
 											onClick={() => handlePlayerTwo(card, i)}
-											disabled={
-												disable ||
-												// player.deck.length === 0 ||
-												// player.one.length === 0 ||
-												(isSuddenDeath && deathCards.length < 1)
-											}
+											disabled={disable ||(isSuddenDeath && deathCards.length === 0)}
 										/>
 									</li>
 								))
