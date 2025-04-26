@@ -81,8 +81,14 @@ function App() {
   <>
     <div className="flex flex-col items-center justify-center h-screen lg:w-screen font-bold p-10">
       {leaderboards ? (
-        <div className='leaderboardScreen'>
-          <p className='leaderboard-title'>Leaderboard</p>
+        <div className='flex flex-col items-center lg:w-screen lg:h-screen'>
+          <button
+              className='border lg:text-4xl lg:border-4 lg:screen mt-2 lg:rounded-full lg:h-15 lg:w-100 active:translate-y-2 cursor-pointer bg-black text-red-700 hover:animate-pulse'
+            onClick={() => setLeaderboards(false)}
+          >
+            MENU
+          </button>
+          <p className=' flex  text-5xl text-red-700 '>Leaderboard</p>
             <ul className='leaderboard'>
               {sortedLeaders.map((lead,i) => (
                 <li className='stats' key={lead._id}>
@@ -90,15 +96,9 @@ function App() {
                 </li>
               ))}
             </ul>
-          <button
-            className='backBtn'
-            onClick={() => setLeaderboards(false)}
-          >
-            MENU
-          </button>
         </div>
       ) : !play && !instructions ? (
-        <div className='flex flex-col items-center justify-evenly h-screen p-1 '>
+        <div className='flex flex-col items-center justify-evenly h-screen p-1'>
               <h1 className='lg:text-8xl lg:font-bold text-red-700 cursor:pointer animate-pulse'>SUDDEN DEATH!</h1>
           <button
                 className='flex justify-center items-center border lg:text-7xl lg:border-4 lg:screen lg:rounded-full lg:h-30 lg:w-200 active:translate-y-2 cursor-pointer bg-black text-red-700 hover:animate-pulse'
@@ -107,7 +107,7 @@ function App() {
             Play
           </button>
           <button
-                className='flex justify-center items-center border lg:text-7xl lg:border-4 lg:screen lg:rounded-full lg:h-30 lg:w-200 active:translate-y-2 cursor-pointer bg-black text-red-700 hover:animate-pulse'
+                className='flex justify-center items-center border lg:text-7xl lg:border-4 lg:screen lg:rounded-full lg:h-30 lg:w-200 active:translate-y-2 cursor-pointer bg-black text-red-700 hover:animate-pulse mt-2'
             onClick={() => setLeaderboards(lb => !lb)}
           >
             Leaderboard

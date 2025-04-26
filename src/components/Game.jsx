@@ -195,7 +195,7 @@ export function Game({ cards }) {
 		}, 1550);
 		if(player.deck.length > 0 && !isSuddenDeath) {
 			if(player.one.length === 0 && player.deck.length >= 0) {
-				setWinner('COMPUTER WINS!');
+				setWinner(`YOU DON'T WIN!`);
 				setDisable(true)
 				console.log('COMPUTER WON');
 			}else if(player.two.length === 0 && player.deck.length >= 0) {
@@ -206,7 +206,7 @@ export function Game({ cards }) {
 		}
 		if(player.deck.length === 0 && !isSuddenDeath) {
 			if(player.one.length < player.two.length) {
-				setWinner('COMPUTER WINS!');
+				setWinner(`YOU DON'T WIN!`);
 				setDisable(true);
 				console.log('WINNER COMPUTER');
 			} else if(player.two.length < player.one.length) {
@@ -283,14 +283,14 @@ export function Game({ cards }) {
 					<img className='lg:h-40'key={i} src={card.image} alt='Death Card'/>
 				))}
 				</div>
-				{enableSuddenDeathPlayer && deathCards.length <= 0 && 
+				{enableSuddenDeathPlayer && deathCards.length === 0 && 
 				<div className='flex justify-center '>
-				<button className='border-2 rounded-full lg:w-100 lg:h-10 bg-black text-red-700 text-3xl'onClick={suddenDeath} disabled={isSuddenDeath }>SUDDEN DEATH</button>
+						<button className='border-2 rounded-full lg:w-100 lg:h-10 bg-black text-red-700 text-3xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(0,0,0)] to-[#2f2e2e] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer 'onClick={suddenDeath} disabled={isSuddenDeath }>SUDDEN DEATH</button>
 				</div>
 				}
 				{player.one && player.two ? (
 					<>
-						<div className='flex  flex-row flex-wrap lg:w-200 justify-start mt-2 lg:h-40'>
+						<div className='flex  flex-row flex-wrap lg:w-200 justify-start mt-4 lg:h-40'>
 							{player.one.length > 0 && winner.length === 0 &&
 								player.one.map((card, i) => (
 									<li className='playerOneCards' key={card.image}>
@@ -302,8 +302,8 @@ export function Game({ cards }) {
 									</li>
 								))
 							}
-							{winner === 'COMPUTER WINS!'&& (
-								<div className='text-8xl animate-bounce '><h2 >{winner}</h2></div>
+							{winner === `YOU DON'T WIN!` && (
+								<div className='text-8xl text-red-700 animate-bounce '><h2 >{winner}</h2></div>
 							)}
 						</div>
 					<div className='flex justify-end items-center lg:w-300 lg:h-40 '>
@@ -333,7 +333,7 @@ export function Game({ cards }) {
 								))
 							}
 							{winner === 'YOU WIN!' && (
-								<h2 className='text-8xl animate-bounce'><br/>{winner}</h2>
+								<h2 className='text-8xl text-green-700 animate-bounce'><br/>{winner}</h2>
 							)}
 
 						</div>
