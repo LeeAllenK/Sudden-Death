@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import {Clock} from './Clock';
+import { HomeBtn } from './Home-Btn';
 const backOfCard = `https://www.deckofcardsapi.com/static/img/back.png`;
 
 function cardValue(card) {
@@ -30,7 +31,7 @@ function cardSuit(card) {
 			return parseInt(card.suit);
 	}
 }
-export function Game({ cards }) {
+export function Game({ cards,setPlay }) {
 
 	const [deck, setDeck] = useState(backOfCard);
 	const [isSuddenDeath, setIsSuddenDeath] = useState(false);
@@ -274,28 +275,29 @@ export function Game({ cards }) {
 	};
 	return (
 		<>
-			<ul className='flex flex-col justify-center items-center lg:h-screen lg:w-screen '>
+			<ul className='flex flex-col justify-center items-center lg:w-screen lg:h-screen md:w-screen md:h-screen'>
 			{player.one && player.two && player.deck &&
-					<div className='flex lg:w-300 justify-end'><Clock winner={winner}/></div>
+					<div className='flex  justify-end lg:w-300 md:w-80 '> <HomeBtn onClick={() => setPlay(p => !p)} /><Clock winner={winner} /></div>
+
 			}
 				<div className='flex justify-center lg:h-40'>
 				{deathCards.map((card, i) => (
-					<img className='lg:h-40'key={i} src={card.image} alt='Death Card'/>
+					<img className='lg:h-40 md:h-20'key={i} src={card.image} alt='Death Card'/>
 				))}
 				</div>
 				{enableSuddenDeathPlayer && deathCards.length === 0 && 
 				<div className='flex justify-center '>
-						<button className='border-2 rounded-full lg:w-100 lg:h-10 bg-black text-red-700 text-3xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(0,0,0)] to-[#2f2e2e] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer 'onClick={suddenDeath} disabled={isSuddenDeath }>SUDDEN DEATH</button>
+						<button className='border-2 rounded-full lg:w-100 md:w-70 md:h-8 lg:h-10 bg-black text-red-700 lg:text-3xl md:text-2xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(0,0,0)] to-[#2f2e2e] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer 'onClick={suddenDeath} disabled={isSuddenDeath }>SUDDEN DEATH</button>
 				</div>
 				}
 				{player.one && player.two ? (
 					<>
-						<div className='flex  flex-row flex-wrap lg:w-200 justify-start mt-4 lg:h-40'>
+						<div className='flex  flex-row flex-wrap lg:w-200 justify-start mt-4 md:mt-1 lg:h-40 md:h-40 md:w-150 md:-ml-50'>
 							{player.one.length > 0 && winner.length === 0 &&
 								player.one.map((card, i) => (
 									<li className='playerOneCards' key={card.image}>
 										<img
-											className='lg:h-25'
+											className='lg:h-25 md:h-20'
 											alt='Card Image'
 											src={isSuddenDeath && !deathCards[0] || back? backOfCard : card.image}
 										/>
@@ -306,23 +308,23 @@ export function Game({ cards }) {
 								<div className='text-8xl text-red-700 animate-bounce '><h2 >{winner}</h2></div>
 							)}
 						</div>
-					<div className='flex justify-end items-center lg:w-300 lg:h-40 '>
+					<div className='flex justify-end items-center lg:w-300 lg:h-40 md:full md:w-200'>
 						<li className='flex '>
 							{player.deck.length > 0 &&
 								<img
-									className='lg:h-40'
+									className='lg:h-40 md:h-25'
 									alt='Card Image'
 									src={deck}
 								/>
 							}
 						</li>
 					</div>
-						<div className='flex flex-row flex-wrap lg:h-40 lg:w-200 justify-start'>
+						<div className='flex flex-row flex-wrap justify-start lg:h-40 md:h-40 lg:w-200 md:w-150 md:-ml-50'>
 							{player.two.length > 0 && winner.length === 0 &&
 								player.two.map((card, i) => (
 									<li className='' key={card.image}>
 										<input
-											className='lg:h-25'
+											className='lg:h-25 md:h-20'
 											type='image'
 											alt='Card Image'
 											src={isSuddenDeath && !deathCards[1] || back? backOfCard : card.image}

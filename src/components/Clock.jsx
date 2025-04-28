@@ -59,7 +59,7 @@ export function Clock({winner}){
 			{winner.includes('YOU WIN!') && username.length < 3 &&
 			<Username setUsername={setUsername} />
 			}
-		<h3 className='flex  text-white lg:text-4xl' value={winner}>{minutes < 10 ? '0'+ minutes: minutes} : {seconds < 10 ? '0'+ seconds : seconds}</h3>
+		<h3 className='flex md:justify-end text-white lg:text-4xl md:text-2xl md:w-50' value={winner}>{minutes < 10 ? '0'+ minutes: minutes} : {seconds < 10 ? '0'+ seconds : seconds}</h3>
 		</div>
 	)
 }

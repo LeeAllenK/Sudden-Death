@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Game } from './components/Game';
-import { HomeBtn } from './components/Home-Btn';
 import { InstructionsBtn } from './components/InstructionsBtn';
 // import './App.css';
 
@@ -101,13 +100,13 @@ function App() {
         <div className='flex flex-col lg:items-center md:items-center lg:justify-evenly md:justify-start sm:justify-start items-center justify-start h-screen  p-1'>
               <h1 className='lg:text-8xl md:text-7xl sm:text-7xl text-6xl font-bold text-red-700 cursor:pointer animate-pulse mb-4 md:mt-1 md:p-1'>SUDDEN DEATH!</h1>
           <button
-                className=' flex justify-center items-center  lg:text-7xl md:text-5xl sm:text-5xl text-4xl border-4 lg:rounded-full lg:h-30 md:h-20 sm:h-20 h-15 lg:w-200 md:w-screen sm:w-screen w-screen active:translate-y-2 md:mb-3 sm:mb-3 mb-4 cursor-pointer border-t-[0.09em] border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[#717070] to-[#f7acac] shadow-[0_4px_3px_#ff0101] bg-black text-red-700 hover:animate-pulse leading-tight'
+                className=' flex justify-center items-center lg:text-7xl md:text-5xl sm:text-5xl text-4xl border-4 lg:rounded-full lg:h-30 md:h-15 sm:h-20 h-20 lg:w-200 md:w-screen sm:w-screen w-screen active:translate-y-2 md:mb-3 sm:mb-3 mb-4 cursor-pointer border-t-[0.09em] border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[#717070] to-[#f7acac] shadow-[0_4px_3px_#ff0101] bg-black text-red-700 hover:animate-pulse leading-tight'
             onClick={() => setPlay(p => !p)}
           >
             Play
           </button>
           <button
-                className='flex justify-center items-center lg:text-7xl md:text-6xl sm:text-5xl text-4xl border-4 lg:rounded-full lg:h-30 md:h-20 sm:h-20 h-20 lg:w-200 md:w-screen sm:w-screen w-screen active:translate-y-2  sm:mb-3 mb-4 cursor-pointer border-t-[0.09em] border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[#717070] to-[#f7acac] shadow-[0_4px_3px_#ff0101] bg-black text-red-700 hover:animate-pulse leading-tight'
+                className='flex justify-center items-center lg:text-7xl md:text-6xl sm:text-5xl text-4xl border-4 lg:rounded-full lg:h-30 md:h-15 sm:h-20 h-20 lg:w-200 md:w-screen sm:w-screen w-screen active:translate-y-2  sm:mb-3 mb-4 cursor-pointer border-t-[0.09em] border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[#717070] to-[#f7acac] shadow-[0_4px_3px_#ff0101] bg-black text-red-700 hover:animate-pulse leading-tight'
             onClick={() => setLeaderboards(lb => !lb)}
           >
             Leaderboard
@@ -118,8 +117,7 @@ function App() {
         <>
           {!instructions && (
           <>
-            <HomeBtn onClick={ ()=> setPlay(p=>!p)} />
-              <Game cards={cards} />
+            <Game cards={cards} setPlay={setPlay} />
           </>
           )}
         </>
