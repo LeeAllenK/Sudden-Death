@@ -275,75 +275,85 @@ export function Game({ cards,setPlay }) {
 	};
 	return (
 		<>
-			<ul className='flex flex-col justify-center items-center lg:w-screen lg:h-screen md:w-screen md:h-screen'>
-			{player.one && player.two && player.deck &&
-					<div className='flex  justify-end lg:w-300 md:w-80 '> <HomeBtn onClick={() => setPlay(p => !p)} /><Clock winner={winner} /></div>
+			<ul className="grid w-screen h-screen place-items-center">
+				{player.one && player.two && player.deck && (
+					<div className="grid items-end w-screen h-37 grid-cols-3 ">
+						<HomeBtn onClick={() => setPlay((p) => !p)} />
+						<div className="grid grid-cols-[repeat(2,minmax(0,100px))] justify-center  w-full lg:h-37">
+					{deathCards.map((card, i) => (
+						<img className="grid w-full  lg:h-35  md:h-20" key={i} src={card.image} alt="Death Card" />
+					))}
+				</div>
+						<Clock winner={winner} />
+					</div>
+				)}
 
-			}
-				<div className='flex justify-center lg:h-40'>
-				{deathCards.map((card, i) => (
-					<img className='lg:h-40 md:h-20'key={i} src={card.image} alt='Death Card'/>
-				))}
-				</div>
-				{enableSuddenDeathPlayer && deathCards.length === 0 && 
-				<div className='flex justify-center '>
-						<button className='border-2 rounded-full lg:w-100 md:w-70 md:h-8 lg:h-10 bg-black text-red-700 lg:text-3xl md:text-2xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(0,0,0)] to-[#2f2e2e] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer 'onClick={suddenDeath} disabled={isSuddenDeath }>SUDDEN DEATH</button>
-				</div>
-				}
+
+				{enableSuddenDeathPlayer && deathCards.length === 0 && (
+					<div className="grid justify-center md:w-200 md:pl-40 pb-3">
+						<button
+							className="border-2 rounded-full lg:w-90 md:w-70 md:h-8 lg:h-8 bg-black text-red-700 lg:text-2xl md:text-xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(0,0,0)] to-[#2f2e2e] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer"
+							onClick={suddenDeath}
+							disabled={isSuddenDeath}
+						>
+							SUDDEN DEATH
+						</button>
+					</div>
+				)}
+
 				{player.one && player.two ? (
 					<>
-						<div className='flex  flex-row flex-wrap lg:w-200 justify-start mt-4 md:mt-1 lg:h-40 md:h-40 md:w-150 md:-ml-50'>
+						<div className="grid grid-cols-[repeat(8,minmax(0,100px))] lg:w-screen justify-center lg:h-80 md:h-40  md:w-150 md:-ml-50 ">
 							{player.one.length > 0 && winner.length === 0 &&
-								player.one.map((card, i) => (
-									<li className='playerOneCards' key={card.image}>
-										<img
-											className='lg:h-25 md:h-20'
-											alt='Card Image'
-											src={isSuddenDeath && !deathCards[0] || back? backOfCard : card.image}
+								player.one.map((card) => (
+									<li  key={card.image}>
+										<input
+											className="lg:h-40 md:h-20 cursor-default"
+											type='image'
+											alt="Card Image"
+											src={isSuddenDeath && !deathCards[0] || back ? backOfCard : card.image}
 										/>
 									</li>
-								))
-							}
+								))}
 							{winner === `YOU DON'T WIN!` && (
-								<div className='text-8xl text-red-700 animate-bounce '><h2 >{winner}</h2></div>
+								<div className="grid place-items-center text-8xl text-red-700 animate-bounce h-screen w-screen">
+									<h2>{winner}</h2>
+								</div>
 							)}
 						</div>
-					<div className='flex justify-end items-center lg:w-300 lg:h-40 md:full md:w-200'>
-						<li className='flex '>
-							{player.deck.length > 0 &&
-								<img
-									className='lg:h-40 md:h-25'
-									alt='Card Image'
-									src={deck}
-								/>
-							}
-						</li>
-					</div>
-						<div className='flex flex-row flex-wrap justify-start lg:h-40 md:h-40 lg:w-200 md:w-150 md:-ml-50'>
+						<div className="relative max-w-full h-10">
+							{winner.length === 0 && player.deck.length > 0 && (
+								<li className="absolute  place-items-center">
+									<img className="lg:h-50 md:h-25" alt="Card Image" src={deck} />
+								</li>
+							)}
+						</div>
+						<div className="grid grid-cols-[repeat(8,minmax(0px,100px))]  justify-center lg:w-screen lg:h-80 md:h-40 mb-50 md:w-150 md:-ml-50 md:pb-2">
 							{player.two.length > 0 && winner.length === 0 &&
 								player.two.map((card, i) => (
-									<li className='' key={card.image}>
+									<li key={card.image}>
 										<input
-											className='lg:h-25 md:h-20'
-											type='image'
-											alt='Card Image'
-											src={isSuddenDeath && !deathCards[1] || back? backOfCard : card.image}
+											className="lg:h-40 md:h-20"
+											type="image"
+											alt="Card Image"
+											src={isSuddenDeath && !deathCards[1] || back ? backOfCard : card.image}
 											onClick={() => handlePlayerTwo(card, i)}
-											disabled={disable ||(isSuddenDeath && deathCards.length === 0)}
+											disabled={disable || (isSuddenDeath && deathCards.length === 0)}
 										/>
 									</li>
-								))
-							}
+								))}
 							{winner === 'YOU WIN!' && (
-								<h2 className='text-8xl text-green-700 animate-bounce'><br/>{winner}</h2>
+								<h2 className="grid place-items-center text-8xl text-green-700 h-screen animate-bounce">
+									<br />{winner}
+								</h2>
 							)}
-
 						</div>
 					</>
 				) : (
 					<>Loading....</>
 				)}
 			</ul>
+
 		</>
 	);
 }
