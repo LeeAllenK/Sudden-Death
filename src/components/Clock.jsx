@@ -55,9 +55,9 @@ export function Clock({winner}){
 				console.log('WINNER',winner)
 		},[winner,username,minutes,seconds])
 	return(
-		<div className="grid justify-center grid-rows-[auto_auto] w-full ">
+		<div className="grid justify-center items-end grid-rows-[auto_auto] w-full h-full">
 			{winner.includes("YOU WIN!") && username.length < 3 && <Username setUsername={setUsername} />}
-			<h3 className="grid justify-end text-white lg:text-4xl md:text-2xl w-full place-items-start" value={winner}>
+			<h3 className="grid justify-end text-white lg:text-4xl md:text-3xl w-full place-items-start" value={winner}>
 				{minutes < 10 ? "0" + minutes : minutes} : {seconds < 10 ? "0" + seconds : seconds}
 			</h3>
 		</div>

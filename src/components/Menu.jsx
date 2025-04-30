@@ -1,8 +1,3 @@
-
-import { Instructions } from './Instructions'
-import {Btn} from './Button'
-
-
 export function Menu({setPlay ,setInstructions ,setLeaderboards}){
 
 	return(

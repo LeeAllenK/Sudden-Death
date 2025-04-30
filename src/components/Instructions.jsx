@@ -1,16 +1,8 @@
-import { useState } from 'react';
-import {Backbtn} from './Back-Btn'
-import {Btn} from './Button'
-// import '../instructions.css'
-export function Instructions({setInstructions}) {
-	const [showInstructions, setShowInstructions] = useState(false);
 
-	const handleClick = () => {
-		setShowInstructions(true);
-	};
-	const handleRemove = () => {
-		setInstructions(si=>!si);
-	}
+import {Backbtn} from './Back-Btn'
+
+export function Instructions({setInstructions}) {
+
 	return (
 		<>
 			{setInstructions && (
