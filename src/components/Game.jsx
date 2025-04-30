@@ -275,79 +275,76 @@ export function Game({ cards,setPlay }) {
 	};
 	return (
 		<>
-			<ul className="grid w-screen h-screen place-items-center">
-				{player.one && player.two && player.deck && (
-					<div className="grid items-center  w-screen max-h-fit grid-cols-3">
-							{/* {enableSuddenDeathPlayer && deathCards.length === 0 && ( */}
-								<button
-									className="grid  justify-center items-end border-2 rounded-full lg:w-60 md:w-50 md:h-8 lg:h-8  bg-black text-red-700 lg:text-xl text-sm md:text-xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(0,0,0)] to-[#2f2e2e] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer place-self-center leading-tight"
-									onClick={suddenDeath}
-								disabled={!enableSuddenDeathPlayer || deathCards.length > 0}
-								>
-									SUDDEN DEATH
-								</button>
-							{/* )} */}
-						<div className="grid grid-cols-2 justify-end w-fit h-50  gap-0">
+			<div className="grid w-screen h-screen place-items-center">
+				<div className="grid grid-rows-2 w-screen max-w-screen max-h-screen h-screen p-1 m-1 ">
+					<div className="grid grid-cols-3 items-center w-full">
+						<button
+							className="grid justify-center items-center border-2 rounded-full lg:w-60 md:w-50 sm:w-full w-full md:h-8 lg:h-8 sm:h-10 bg-black text-black- lg:text-xl  md:text-xl sm:text-2xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(203,26,26)] to-[#682f2f] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer place-self-center leading-tight"
+							onClick={suddenDeath}
+							disabled={!enableSuddenDeathPlayer || deathCards.length > 0}
+						>
+							SUDDEN DEATH
+						</button>
+						<div className="grid grid-cols-2  items-center place-items-center w-full h-50 gap-0">
 							{deathCards.map((card, i) => (
-								<img className="w-fit lg:h-30 md:h-25 sm:h-20" key={i} src={card.image} alt="Death Card" />
+								<img className="w-fit lg:h-30 md:h-25 sm:h-fit" key={i} src={card.image} alt="Death Card" />
 							))}
 						</div>
 						<Clock winner={winner} />
 						<HomeBtn onClick={() => setPlay((p) => !p)} />
 					</div>
-				)}
-				{player.one && player.two ? (
-					<div className="grid grid-cols-3 justify-center lg:h-80 md:h-40 w-[70%] md:-ml-50 md:-mt-30 lg:m-0 ">
-						<div className="grid grid-cols-[repeat(8,minmax(0,100px))] justify-center items-start w-max-full w-auto ">
+					<div className="grid grid-cols-3 justify-center lg:h-full md:h-full sm:h-full w-[98%] p-0 m-0">
+						<div className="grid grid-cols-[repeat(7,minmax(0,100px))] justify-center items-start w-[80%]">
 							{player.one.length > 0 && winner.length === 0 &&
 								player.one.map((card) => (
-									<li key={card.image}>
+									<li className='grid place-items-start ' key={card.image}>
 										<input
-											className="lg:h-40 md:h-25 cursor-default"
+											className="lg:h-40 md:h-35 sm:h-25 cursor-default w-fit "
 											type="image"
 											alt="Card Image"
 											src={isSuddenDeath && !deathCards[0] || back ? backOfCard : card.image}
 										/>
 									</li>
 								))}
+						</div>
+						<div className="grid place-items-center w-full ">
+							{winner.length === 0 && player.deck.length > 0 && (
+								<li className="grid place-items-center">
+									<img className="lg:h-fit md:h-fit sm:h-40 " alt="Card Image" src={deck} />
+								</li>
+							)}
 							{winner === `YOU DON'T WIN!` && (
-								<div className="grid place-items-start text-8xl text-red-700 w-150 h-100 animate-bounce">
+								<div className="grid place-items-center lg:text-7xl md:text-7xl sm:text-4xl text-4xl text-red-700 w-auto h-full max-w-full max-h-full animate-bounce">
+									<h2>{winner}</h2>
+								</div>
+							)}
+
+							{winner === "YOU WIN!" && (
+								<div className="grid place-items-center lg:text-7xl md:text-7xl sm:text-4xl text-4xl text-green-700 w-auto h-full max-w-full max-h-full animate-bounce">
 									<h2>{winner}</h2>
 								</div>
 							)}
 						</div>
-						<div className=" grid justify-center items-center w-full">
-							{winner.length === 0 && player.deck.length > 0 && (
-								<li style={{ width: "fit-content" }} className="grid place-items-center">
-									<img className="lg:h-50 md:h-35" alt="Card Image" src={deck} />
-								</li>
-							)}
-						</div>
-						<div className="grid grid-cols-[repeat(8,minmax(0,100px))] justify-center w-max-full w-auto">
-								
+						<div className="grid grid-cols-[repeat(7,minmax(0,100px))] justify-center w-[80%]">
 							{player.two.length > 0 && winner.length === 0 &&
 								player.two.map((card, i) => (
-									<li key={card.image}>
+									<li className='grid place-items-start ' key={card.image}>
 										<input
-											className="lg:h-40 md:h-25"
+											className="lg:h-40 md:h-35 sm:h-25 h-45 "
 											type="image"
 											alt="Card Image"
 											src={isSuddenDeath && !deathCards[1] || back ? backOfCard : card.image}
 											onClick={() => handlePlayerTwo(card, i)}
-											disabled={disable || (isSuddenDeath && deathCards.length > 1)}
+											disabled={disable || (isSuddenDeath && deathCards.length < 1) }
 										/>
 									</li>
 								))}
-							{winner === 'YOU WIN!' && (
-								<h2 className="grid place-items-start text-8xl text-green-700 w-150 h-100 animate-bounce">
-									<br />{winner}
-								</h2>
-							)}
 						</div>
-					</div>
-				) : null}
 
-			</ul>
+					</div>
+
+				</div>
+			</div>
 
 		</>
 	);
