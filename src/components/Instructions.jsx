@@ -17,7 +17,7 @@ export function Instructions({setInstructions}) {
 				<div className="grid h-screen w-screen items-center justify-center grid-rows-[auto_auto]">
 					<p className=" text-red-700 mt-2 animate-pulse max-w-full h-fit pt-5">
 						<Backbtn
-							className="lg:text-6xl md:text-5xl border-4 max-w-[99%] w-auto rounded-full lg:h-full md:h-10 active:translate-y-1 border-t-[0.09em] border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[#dbdada] to-[#fc0101] shadow-[0_4px_3px_#ff0101] cursor-pointer bg-black lg:text-black md:text-black hover:animate-pulse"
+							className=" lg:text-6xl md:text-5xl  border-4 max-w-[99%] w-auto rounded-full lg:h-full md:h-15 active:translate-y-1 border-t-[0.09em] border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[#dbdada] to-[#fc0101] shadow-[0_4px_3px_#ff0101] cursor-pointer bg-black lg:text-black md:text-black hover:animate-pulse"
 							onClick={() => setInstructions((si) => !si)}
 						/></p>
 					<p className="grid place-items-start text-white lg:text-5xl md:text-2xl sm:text-3xl text-xl  h-screen max-w-[99%] w-auto pl-10 mt-5">
