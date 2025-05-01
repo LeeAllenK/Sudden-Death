@@ -299,7 +299,7 @@ export function Game({ cards,setPlay }) {
 						<div className="lg:grid md:flex sm:flex flex lg:grid-cols-7 md:flex-wrap sm:flex-wrap md:content-start  sm:content-start flex-wrap content-start justify-center w-full">
 							{player.one.length > 0 && winner.length === 0 &&
 								player.one.map((card) => (
-									<li className='grid place-items-start lg:w-fit lg:max-h-full h-fit md:w-1/4 sm:w-1/4 w-1/3 m-0 p-0' key={card.image}>
+									<li className='grid place-items-start lg:w-fit lg:max-h-full h-fit md:w-1/4 sm:w-1/4 w-1/2 m-0 p-0' key={card.image}>
 										<input
 											className=" grid  h-full max-h-full w-full max-w-full cursor-default  "
 											type="image"
@@ -330,7 +330,7 @@ export function Game({ cards,setPlay }) {
 						<div className="lg:grid md:flex sm:flex lg:grid-cols-7 md:flex-wrap sm:flex-wrap md:content-star sm:content-start flex flex-wrap content-start justify-center w-full">
 							{player.two.length > 0 && winner.length === 0 &&
 								player.two.map((card, i) => (
-									<li className='grid place-items-start lg:w-full lg:max-h-full h-fit  md:w-1/4 sm:w-1/4 w-1/3 m-0 p-0' key={card.image}>
+									<li className='grid place-items-start lg:w-full lg:max-h-full h-fit  md:w-1/4 sm:w-1/4 w-1/2 m-0 p-0' key={card.image}>
 										<input
 											className="grid h-full max-h-full w-full max-w-full "
 											type="image"
