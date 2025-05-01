@@ -49,9 +49,9 @@ export function Game({ cards,setPlay }) {
 	useEffect(() => {
 
 		const showPlayers = () => {
-			const playerOne = cards.slice(0, 7);
-			const playerTwo = cards.slice(7, 14);
-			const deck = cards.slice(14, cards.length);
+			const playerOne = cards.slice(0, 6);
+			const playerTwo = cards.slice(6, 12);
+			const deck = cards.slice(12, cards.length);
 			setPlayer({ one: playerOne, two: playerTwo, deck: deck });
 			setBack(true)
 		};
@@ -153,12 +153,12 @@ export function Game({ cards,setPlay }) {
 			if(deckCard) {
 				if(!isSuddenDeath || player.deck.length === 0) {
 					setPlayer(prev => {
-						if(player.one.length === player.two.length){
-							return{
-								...prev,
-								one: prev.one.slice(1)
-							}
-						}
+						// if(player.one.length === player.two.length){
+						// 	return{
+						// 		...prev,
+						// 		one: prev.one.slice(1)
+						// 	}
+						// }
 						const findCard = player.one.find((card) => (cardValue(card) + cardSuit(card)) > (cardValue(deckCard) + cardSuit(deckCard)))
 						player.one.some((card, i, arr) => {
 							if((cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)) && arr.every((card) => (cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)))) {
@@ -276,30 +276,32 @@ export function Game({ cards,setPlay }) {
 	return (
 		<>
 			<div className="grid w-screen h-screen place-items-center">
-				<div className="grid grid-rows-2 w-screen max-w-screen max-h-screen h-screen p-1 m-1 ">
-					<div className="grid grid-cols-3 items-center w-full">
+				<div className="grid grid-row-2 w-screen max-w-screen max-h-screen h-screen p-1 ">
+					<div className="grid grid-cols-3 items-center h-fit w-full pb-2">
+					{/* {enableSuddenDeathPlayer && 
+					} */}
 						<button
-							className="grid justify-center items-center border-2 rounded-full lg:w-60 md:w-50 sm:w-full w-full md:h-8 lg:h-8 sm:h-10 bg-black text-black- lg:text-xl  md:text-xl sm:text-2xl border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(203,26,26)] to-[#682f2f] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer place-self-center leading-tight"
+							className="grid justify-center items-center border-2 rounded-full lg:w-full md:w-50 sm:w-full w-full md:h-8 lg:h-8 sm:h-10 bg-black text-black- lg:text-xl  md:text-xl sm:text-2xl text-sm border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(203,26,26)] to-[#682f2f] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer place-self-center leading-tight"
 							onClick={suddenDeath}
 							disabled={!enableSuddenDeathPlayer || deathCards.length > 0}
 						>
 							SUDDEN DEATH
 						</button>
-						<div className="grid grid-cols-2  items-center place-items-center w-full h-50 gap-0">
+						<div className="grid grid-cols-2 items-center place-items-center w-full lg:h-40 md:h-30 sm:h-30 h-20 gap-0">
 							{deathCards.map((card, i) => (
-								<img className="w-fit lg:h-30 md:h-25 sm:h-fit" key={i} src={card.image} alt="Death Card" />
+								<img className="w-fit lg:h-40 md:h-30 sm:h-30 h-17" key={i} src={card.image} alt="Death Card" />
 							))}
 						</div>
 						<Clock winner={winner} />
 						<HomeBtn onClick={() => setPlay((p) => !p)} />
 					</div>
-					<div className="grid grid-cols-3 justify-center lg:h-full md:h-full sm:h-full w-[98%] p-0 m-0">
-						<div className="grid grid-cols-[repeat(7,minmax(0,100px))] justify-center items-start w-[80%]">
+					<div className="grid grid-cols-3 justify-center lg:h-full md:h-full sm:h-full w-[98%] p-1 m-1">
+						<div className="lg:grid md:flex sm:flex flex lg:grid-cols-7 md:flex-wrap sm:flex-wrap md:content-start  sm:content-start flex-wrap content-start justify-center w-full">
 							{player.one.length > 0 && winner.length === 0 &&
 								player.one.map((card) => (
-									<li className='grid place-items-start ' key={card.image}>
+									<li className='grid place-items-start lg:w-fit lg:max-h-full h-fit md:w-1/4 sm:w-1/4 w-1/3 m-0 p-0' key={card.image}>
 										<input
-											className="lg:h-40 md:h-35 sm:h-25 cursor-default w-fit "
+											className=" grid  h-full max-h-full w-full max-w-full cursor-default  "
 											type="image"
 											alt="Card Image"
 											src={isSuddenDeath && !deathCards[0] || back ? backOfCard : card.image}
@@ -307,10 +309,10 @@ export function Game({ cards,setPlay }) {
 									</li>
 								))}
 						</div>
-						<div className="grid place-items-center w-full ">
+						<div className="grid lg:place-items-center md:place-items-center sm:place-items-center place-items-start justify-center w-full ">
 							{winner.length === 0 && player.deck.length > 0 && (
-								<li className="grid place-items-center">
-									<img className="lg:h-fit md:h-fit sm:h-40 " alt="Card Image" src={deck} />
+								<li className="grid ">
+									<img className="lg:h-fit md:h-full sm:max-h-40  max-h-40" alt="Card Image" src={deck} />
 								</li>
 							)}
 							{winner === `YOU DON'T WIN!` && (
@@ -325,17 +327,17 @@ export function Game({ cards,setPlay }) {
 								</div>
 							)}
 						</div>
-						<div className="grid grid-cols-[repeat(7,minmax(0,100px))] justify-center w-[80%]">
+						<div className="lg:grid md:flex sm:flex lg:grid-cols-7 md:flex-wrap sm:flex-wrap md:content-star sm:content-start flex flex-wrap content-start justify-center w-full">
 							{player.two.length > 0 && winner.length === 0 &&
 								player.two.map((card, i) => (
-									<li className='grid place-items-start ' key={card.image}>
+									<li className='grid place-items-start lg:w-full lg:max-h-full h-fit  md:w-1/4 sm:w-1/4 w-1/3 m-0 p-0' key={card.image}>
 										<input
-											className="lg:h-40 md:h-35 sm:h-25 h-45 "
+											className="grid h-full max-h-full w-full max-w-full "
 											type="image"
 											alt="Card Image"
 											src={isSuddenDeath && !deathCards[1] || back ? backOfCard : card.image}
 											onClick={() => handlePlayerTwo(card, i)}
-											disabled={disable || (isSuddenDeath && deathCards.length < 1) }
+											disabled={disable || (isSuddenDeath && deathCards.length < 1) || deathCards.length === 2 }
 										/>
 									</li>
 								))}
