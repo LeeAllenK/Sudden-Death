@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import {Clock} from './Clock';
 import { HomeBtn } from './Home-Btn';
+import {ResetBtn} from './Reset-Btn';
 const backOfCard = `https://www.deckofcardsapi.com/static/img/back.png`;
 
 function cardValue(card) {
@@ -46,6 +47,7 @@ export function Game({ cards,setPlay }) {
 		deck: []
 	});
 	const [back,setBack]= useState(false);
+
 	useEffect(() => {
 
 		const showPlayers = () => {
@@ -153,12 +155,6 @@ export function Game({ cards,setPlay }) {
 			if(deckCard) {
 				if(!isSuddenDeath || player.deck.length === 0) {
 					setPlayer(prev => {
-						// if(player.one.length === player.two.length){
-						// 	return{
-						// 		...prev,
-						// 		one: prev.one.slice(1)
-						// 	}
-						// }
 						const findCard = player.one.find((card) => (cardValue(card) + cardSuit(card)) > (cardValue(deckCard) + cardSuit(deckCard)))
 						player.one.some((card, i, arr) => {
 							if((cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)) && arr.every((card) => (cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)))) {
@@ -273,6 +269,24 @@ export function Game({ cards,setPlay }) {
 		setIsSuddenDeath(!isSuddenDeath);
 
 	};
+
+	const handleReset = () => {
+    	console.log('reset');
+    	setIsSuddenDeath(false);
+    	setDeathCards([]);
+    	setWinner('');
+    	setDisable(false);
+    	setStop(false);
+    	setBack(false);
+    	setEnableSuddenDeathPlayer(false);
+    	const shuffledDeck = [...cards].sort(() => Math.random() - 0.5);
+    	const playerOne = shuffledDeck.splice(0, 6);
+    	const playerTwo = shuffledDeck.splice(0, 6);
+    	const newDeck = shuffledDeck;
+    	setPlayer({ one: playerOne, two: playerTwo, deck: newDeck });
+    	setDeck(backOfCard); 
+	};
+	
 	return (
 		<>
 			<div className="grid w-screen h-screen place-items-center">
@@ -294,6 +308,8 @@ export function Game({ cards,setPlay }) {
 						</div>
 						<Clock winner={winner} />
 						<HomeBtn onClick={() => setPlay((p) => !p)} />
+						<ResetBtn className="grid justify-center items-center border-2 rounded-full lg:w-full md:w-50 sm:w-full w-full md:h-8 lg:h-8 sm:h-10 bg-black text-black- lg:text-xl  md:text-xl sm:text-2xl text-sm border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(203,26,26)] to-[#682f2f] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer place-self-center leading-tight"
+						 onResetClick={handleReset}/>
 					</div>
 					<div className="grid grid-cols-3 justify-center lg:h-full md:h-full sm:h-full w-[98%] p-1 m-1">
 						<div className="lg:grid md:flex sm:flex flex lg:grid-cols-7 md:flex-wrap sm:flex-wrap md:content-start  sm:content-start flex-wrap content-start justify-center w-full">
@@ -309,10 +325,10 @@ export function Game({ cards,setPlay }) {
 									</li>
 								))}
 						</div>
-						<div className="grid lg:place-items-center md:place-items-center sm:place-items-center place-items-start justify-center w-full ">
+						<div className="grid lg:place-items-center  md:place-items-center sm:place-items-center place-items-start justify-center w-full h-fit">
 							{winner.length === 0 && player.deck.length > 0 && (
 								<li className="grid ">
-									<img className="lg:h-fit md:h-full sm:max-h-40  max-h-40" alt="Card Image" src={deck} />
+									<img className="lg:h-fit md:h-full sm:h-40 max-h-fit " alt="Card Image" src={deck} />
 								</li>
 							)}
 							{winner === `YOU DON'T WIN!` && (
