@@ -1,27 +1,31 @@
 import {useState,useEffect} from 'react'
 import {Username} from './Username'
-
+import {HomeBtn} from './Home-Btn'
 export function Clock({winner}){
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
 	const [username, setUsername] = useState('');
-	
-	useEffect(()=>{
-		const timer = setInterval(()=>{
-			setSeconds(seconds +1)
-			if(seconds > 58){
-				setSeconds(0);
-				setMinutes(minutes+1)
-			}
-		},1000)
-			if(minutes === 99 && seconds === 59){
-				clearInterval(timer);
-			}
-		if(winner.length > 0){
+	const [play, setPlay] = useState(false)
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setSeconds((prevSeconds) => {
+				if(prevSeconds > 58) {
+					setMinutes((prevMinutes) => prevMinutes + 1);
+					return 0;
+				}
+				return prevSeconds + 1;
+			});
+		}, 1000);
+
+		if(minutes === 99 && seconds === 59) {
+			clearInterval(timer);
+		}
+		if(winner.length > 0) {
 			clearInterval(timer);
 		}
 		return () => clearInterval(timer);
-	},[seconds])
+	}, [seconds, minutes, winner]);
+
 		const saveTime = async (username, minutes,seconds)=>{
 			const time = `${minutes < 10 ? '0' + minutes : minutes } : ${ seconds < 10 ? '0' + seconds : seconds }`
 			const newTime = {time, text:username}
@@ -49,14 +53,14 @@ export function Clock({winner}){
 				saveTime(username,minutes,seconds)
 			}
 				console.log('WINNER',winner)
-		},[winner,username])
+		},[winner,username,minutes,seconds])
 	return(
-		<div>
-			{winner.includes('YOU WIN!') && username.length < 3 &&
-			<Username setUsername={setUsername} />
-			}
-			
-		<h3 className='clock' value={winner}>{minutes < 10 ? '0'+minutes: minutes} : {seconds < 10 ? '0'+ seconds : seconds}</h3>
+		<div className="grid justify-center items-end grid-rows-[auto_auto] w-full h-full">
+			{winner.includes("YOU WIN!") && username.length < 3 && <Username setUsername={setUsername} />}
+			<h3 className="grid justify-center text-white lg:text-5xl md:text-5xl sm:text-5xl text-2xl w-full place-items-center" value={winner}>
+				{minutes < 10 ? "0" + minutes : minutes} : {seconds < 10 ? "0" + seconds : seconds}
+			</h3>
 		</div>
+
 	)
 }

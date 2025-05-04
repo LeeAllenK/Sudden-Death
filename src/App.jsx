@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Game } from './components/Game';
-import { InstructionsBtn } from './components/InstructionsBtn';
-import './App.css';
+import { Menu } from './components/Menu';
+import {Leaderboard} from './components/Leaderboards'
+import { Instructions } from './components/Instructions';
+// import './App.css';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -26,7 +28,6 @@ function App() {
       getDeck();
     }
   }, [play]);
-
   useEffect(() => {
     const start = async () => {
       if(!deckId) return;
@@ -62,13 +63,14 @@ function App() {
         fetchTimes();
       }
   }, [leaderboards]);
+  console.log('VITE',import.meta.env.VITE_API_URL);
 
   const handleClick = () => {
     setInstructions(true);
   };
 
   useEffect(() => {
-    document.body.className = play ? 'play-mode' : 'default-mode';
+    document.body.className = !play ? ' bg-[#383636]' : 'bg-black';
   }, [play]);
 
   const sortedLeaders = leaders.sort((a, b) => {
@@ -78,55 +80,15 @@ function App() {
   });
   return (
   <>
-    <div className="appScreen">
-      {leaderboards ? (
-        <div className='leaderboardScreen'>
-          <p className='leaderboard-title'>Leaderboard</p>
-            <ul className='leaderboard'>
-              {sortedLeaders.map((lead,i) => (
-                <li className='stats' key={lead._id}>
-                 {lead.text.toUpperCase()}{' '}{lead.time}
-                </li>
-              ))}
-            </ul>
-          <button
-            className='backBtn'
-            onClick={() => setLeaderboards(false)}
-          >
-            MENU
-          </button>
-        </div>
-      ) : !play && !instructions ? (
-        <div className='playBorder'>
-          <h1 className='suddenDeath'>SUDDEN DEATH!</h1>
-          <button
-            className='playBtn'
-            onClick={() => setPlay(p => !p)}
-          >
-            Play
-          </button>
-          <button
-            className='leaderboardBtn'
-            onClick={() => setLeaderboards(lb => !lb)}
-          >
-            Leaderboard
-          </button>
-          <InstructionsBtn onClick={handleClick} value='Instructions' />
-        </div>
-      ) : (
-        <>
-          {!instructions && (
-            <>
-              <button
-                className='homeBtn'
-                onClick={() => setPlay(p => !p)}
-              >
-                Home
-              </button>
-              <Game cards={cards} />
-            </>
-          )}
-        </>
+    <div className="items-center justify-center h-screen w-screen font-bold ">
+      {instructions ? (
+          <Instructions onClick={() => setInstructions(si=>!si)} setInstructions={setInstructions}/>
+      ) : play ? (
+          <Game cards={cards} setPlay={setPlay}  />        
+      ) : leaderboards ? (    
+          <Leaderboard  setLeaderboards={setLeaderboards} sortedLeaders={sortedLeaders}/>    
+      ) :( 
+          <Menu setInstructions={setInstructions} setPlay={setPlay} setLeaderboards={setLeaderboards} />
       )}
     </div>
   </>
