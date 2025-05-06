@@ -6,7 +6,7 @@ The name of the game is SUDDEN DEATH!! Each player is dealt 7 cards from a deck.
 
 <div id="header" >
  <h1 class="heading-element" dir="auto">How It's Made:</h1>
- Tech used: HTML, CSS, JavaScript,React <br/><br/>
+ Tech used: HTML, Tailwind,React,Vite <br/><br/>
  React was used for building the user interface and managing state. Implementing react hooks of useState and useEffect to manage game state and update dependencies effiiciently. The user interface is designed to be responsive and user-friendly. CSS is used for styling and creating a visually appealing design, while JavaScript handles the game logic and interactivity.
 </div>
 
