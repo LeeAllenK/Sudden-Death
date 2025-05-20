@@ -1,5 +1,4 @@
 export function HomeBtn({onClick}){
-
 	return(
 		<div className="grid grid-cols-[auto] justify-center items-start w-full  ">
 			<button

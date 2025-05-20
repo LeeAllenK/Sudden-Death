@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 export function Username({setUsername }) {
 	const [inputUsername, setInputUsername] = useState('');
-
 	return (
 		<>
 			<p>{inputUsername.length === 3 ? 'Initials Added' :'Insert Initials' }</p>
@@ -13,7 +12,6 @@ export function Username({setUsername }) {
 				onChange={(e) => {
 					setInputUsername(e.target.value);
 					setUsername(e.target.value);
-					console.log(inputUsername);
 				}}
 			/>
 		</>

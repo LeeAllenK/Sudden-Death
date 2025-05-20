@@ -33,7 +33,6 @@ function cardSuit(card) {
 	}
 }
 export function Game({ cards,setPlay }) {
-
 	const [deck, setDeck] = useState(backOfCard);
 	const [isSuddenDeath, setIsSuddenDeath] = useState(false);
 	const [deathCards, setDeathCards] = useState([]);
@@ -61,9 +60,9 @@ export function Game({ cards,setPlay }) {
 			setBack(false)
 		}, 600)
 
-		setEnableSuddenDeathPlayer(false)
+		setEnableSuddenDeathPlayer(false);
 		showPlayers();
-		return () => clearTimeout(flipBack)
+		return () => clearTimeout(flipBack);
 	}, [cards]);
 
 	useEffect(() => {
@@ -76,16 +75,15 @@ export function Game({ cards,setPlay }) {
 		const interval = setInterval(() => {
 			if(player.deck.length > 0){
 			if(player.two.every((card) => (cardValue(card) + cardSuit(card)) < (cardValue(player.deck[0]) + cardSuit(player.deck[0])))) {
-				flipCard()
-				setStop(false)
-				// console.log('STOP INTERVAL');
+				flipCard();
+				setStop(false);
 			}
 		}
 		}, 1000);
 		if(stop && !isSuddenDeath) {
 			clearInterval(interval)
 		} else {
-			flipCard()
+			flipCard();
 		}
 		return () => clearInterval(interval);
 	}, [player.two, player.deck, stop, isSuddenDeath, disable,back]);
@@ -269,7 +267,6 @@ export function Game({ cards,setPlay }) {
 		setIsSuddenDeath(!isSuddenDeath);
 
 	};
-
 	const handleReset = () => {
     	console.log('reset');
     	setIsSuddenDeath(false);
@@ -292,8 +289,6 @@ export function Game({ cards,setPlay }) {
 			<div className="grid w-screen h-screen place-items-center">
 				<div className="grid  w-screen max-w-screen max-h-screen h-screen p-1 ">
 					<div className="grid grid-cols-3 items-center h-fit w-full pb-2">
-					{/* {enableSuddenDeathPlayer && 
-					} */}
 						<button
 							className="grid justify-center items-center border-2 rounded-full lg:w-full md:w-50 sm:w-full w-full md:h-8 lg:h-8 sm:h-10 bg-black text-black- lg:text-xl  md:text-xl sm:text-2xl text-sm border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(203,26,26)] to-[#682f2f] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer place-self-center leading-tight"
 							onClick={suddenDeath}
@@ -317,7 +312,6 @@ export function Game({ cards,setPlay }) {
 					</div>
 					<div className="grid grid-cols-3 justify-center lg:h-full md:h-full sm:h-full w-[98%] p-1 m-1">
 						<div className="lg:grid md:flex sm:flex flex lg:grid-cols-7 md:flex-wrap sm:flex-wrap md:content-start  sm:content-start flex-wrap content-start justify-center w-full">
-							{/* <h2 className="text-center text-white text-lg font-bold">Computer</h2> */}
 							{player.one.length > 0 && winner.length === 0 &&
 								player.one.map((card) => (
 									<li className='grid place-items-start lg:w-fit lg:max-h-full h-fit md:w-1/4 sm:w-1/4 w-1/2 m-0 p-0' key={card.image}>

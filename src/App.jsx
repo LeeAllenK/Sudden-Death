@@ -3,7 +3,6 @@ import { Game } from './components/Game';
 import { Menu } from './components/Menu';
 import {Leaderboard} from './components/Leaderboards'
 import { Instructions } from './components/Instructions';
-// import './App.css';
 
 function App() {
   const [cards, setCards] = useState([]);
