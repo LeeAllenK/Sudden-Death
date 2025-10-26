@@ -13,8 +13,8 @@ app.use(cors());
 mongoose.connect(process.env.MONGODB_URI);
 
 const timeSchema = new mongoose.Schema({
-	text: { type: String, required: false},
-	time: { type: String, required: false},
+	text: { type: String, required: true},
+	time: { type: String, required: true},
 });
 const Time = mongoose.model('Time', timeSchema);
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {Clock} from './Clock';
 import { HomeBtn } from './Home-Btn';
 import {ResetBtn} from './Reset-Btn';
+import {Username} from './Username'
 const backOfCard = `https://www.deckofcardsapi.com/static/img/back.png`;
 
 function cardValue(card) {
@@ -46,6 +47,7 @@ export function Game({ cards,setPlay }) {
 		deck: []
 	});
 	const [back,setBack]= useState(false);
+	const [userName, setUsername] = useState('');
 
 	useEffect(() => {
 
@@ -283,7 +285,30 @@ export function Game({ cards,setPlay }) {
     	setPlayer({ one: playerOne, two: playerTwo, deck: newDeck });
     	setDeck(backOfCard); 
 	};
-	
+	useEffect(() => {
+		if(winner && userName.length === 3) {
+			const postWinner = async () => {
+				try {
+					const res = await fetch(`${import.meta.env.VITE_API_URL}/api/username`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							username: userName,
+							time: '00:59', // Replace with actual game time if available
+						}),
+					});
+					const data = await res.json();
+					console.log('Winner saved:', data);
+				} catch(err) {
+					console.error('Failed to save winner:', err);
+				}
+			};
+			postWinner();
+		}
+	}, [winner, userName]);
+
 	return (
 		<>
 			<div className="grid w-screen h-screen place-items-center">

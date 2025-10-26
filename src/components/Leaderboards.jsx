@@ -7,7 +7,7 @@ export function Leaderboard({setLeaderboards ,sortedLeaders}){
 				className="border lg:text-4xl lg:border-4 lg:w-full md:w-full sm:w-full max-w-full mt-2 lg:rounded-full lg:h-15 active:translate-y-2 cursor-pointer bg-black text-red-700 hover:animate-pulse" onClick={()=> setLeaderboards(lb=>!lb)} >
 				MENU
 			</button>	
-			<p className="grid place-items-center text-5xl text-red-700">Leaderboard <br/><br/> <p className='text-white'>COMING SOON FUTURE UPDATES!</p></p>
+			<p className="grid place-items-center text-5xl text-red-700">Leaderboard</p>
 			<ul className="grid leaderboard place-items-center gap-4">
 				{sortedLeaders.map((lead, i) => (
 					<li className="stats" key={lead._id}>
