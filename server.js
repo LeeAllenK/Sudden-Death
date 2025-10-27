@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
 const timeSchema = new mongoose.Schema({
