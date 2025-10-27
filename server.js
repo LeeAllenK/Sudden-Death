@@ -10,26 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// mongoose.connect(process.env.MONGODB_URI);
 const mongoose = require('mongoose');
-
-async function connectToDatabase() {
-	try {
-		await mongoose.connect(process.env.MONGODB_URI, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-			serverSelectionTimeoutMS: 10000, // Optional: timeout after 10s
-			ssl: true, // Ensure SSL is used
-			tlsAllowInvalidCertificates: false, // Enforce certificate validation
-		});
-		console.log('✅ Connected to MongoDB Atlas');
-	} catch(err) {
-		console.error('❌ MongoDB connection error:', err);
-		process.exit(1); // Exit the app if DB connection fails
-	}
-}
-
-connectToDatabase();
+mongoose.connect(process.env.MONGODB_URI);
 
 const timeSchema = new mongoose.Schema({
 	text: { type: String, required: true},
