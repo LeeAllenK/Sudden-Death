@@ -2,12 +2,15 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
+import path from 'path';
+const __dirname = path.resolve(); // Needed for ES modules
+// Serve static files from React build
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -25,7 +28,7 @@ const Time = mongoose.model('Time', timeSchema);
 
 //Possible add for route to handle root request
 app.get('/', (req, res) => {
-	res.send('🟢 API is running');
+	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 app.get('/api/stats', async (req, res) => {
