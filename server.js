@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -27,10 +27,9 @@ const timeSchema = new mongoose.Schema({
 const Time = mongoose.model('Time', timeSchema);
 
 //Possible add for route to handle root request
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
-
 app.get('/api/stats', async (req, res) => {
 	try {
 		const times = await Time.find();
