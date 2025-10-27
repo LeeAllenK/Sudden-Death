@@ -23,6 +23,11 @@ const timeSchema = new mongoose.Schema({
 });
 const Time = mongoose.model('Time', timeSchema);
 
+//Possible add for route to handle root request
+app.get('/', (req, res) => {
+	res.send('🟢 API is running');
+});
+
 app.get('/api/stats', async (req, res) => {
 	try {
 		const times = await Time.find();
