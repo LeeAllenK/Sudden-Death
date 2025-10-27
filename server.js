@@ -10,11 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGODB_URI, {
-	useUnifiedTopology: true,
-	ssl: true,
-	tlsAllowInvalidCertificates: false,
-})
+mongoose.connect(process.env.MONGODB_URI)
 	.then(() => console.log('✅ Connected to MongoDB'))
 	.catch((err) => {
 		console.error('❌ MongoDB connection error:', err);
