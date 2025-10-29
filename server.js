@@ -3,8 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+
 const __dirname = path.resolve(); // Needed for ES modules
-// Serve static files from React build
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -35,7 +35,7 @@ app.get('/api/stats', async (req, res) => {
 		res.status(500).json({ message: 'Time not found', error: err });
 	}
 });
-//Possible add for route to handle root request
+//Possible add for route to handle root request *Remember call route after so doesn't catch everything*
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
