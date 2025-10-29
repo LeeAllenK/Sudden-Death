@@ -10,7 +10,7 @@ export function Leaderboard({setLeaderboards ,sortedLeaders}){
 			<p className="grid place-items-center text-5xl text-red-700">Leaderboard</p>
 			<ul className="grid leaderboard place-items-center gap-4">
 				{sortedLeaders.map((lead, i) => (
-					<li className="stats" key={lead._id}>
+					<li className="text-4xl text-white" key={lead._id}>
 						{lead.text.toUpperCase()} {lead.time}
 							
 					</li>
