@@ -79,7 +79,7 @@ function App() {
   });
   return (
   <>
-    <div className="items-center justify-center h-screen w-screen font-bold ">
+    <section className="items-center justify-center h-screen w-screen font-bold ">
       {instructions ? (
           <Instructions onClick={() => setInstructions(si=>!si)} setInstructions={setInstructions}/>
       ) : play ? (
@@ -89,7 +89,7 @@ function App() {
       ) :( 
           <Menu setInstructions={setInstructions} setPlay={setPlay} setLeaderboards={setLeaderboards} />
       )}
-    </div>
+    </section>
   </>
   );
 }
