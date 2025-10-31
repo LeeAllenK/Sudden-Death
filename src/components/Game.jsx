@@ -352,7 +352,7 @@ export function Game({ cards,setPlay }) {
 						<div className="grid lg:place-items-center  md:place-items-center sm:place-items-center place-items-start justify-center w-full h-fit">
 							{winner.length === 0 && player.deck.length > 0 && (
 								<li className="grid ">
-									<img className="lg:h-fit md:h-full sm:h-40 max-h-fit " alt="Card Image" src={deck} />
+									<img className="lg:h-full md:h-50 sm:h-20 w-20  " alt="Card Image" src={deck} />
 								</li>
 							)}
 							{winner === `YOU DON'T WIN!` && (
