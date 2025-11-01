@@ -224,8 +224,7 @@ export function Game({ cards,setPlay }) {
 	useEffect(() => {
 		if(deathCards.length === 2 && isSuddenDeath && stop) {
 			compareDeathCards();
-			setDisable(sd => !sd)
-			console.log('s', stop)
+			setDisable(sd => !sd);
 		}
 	}, [deathCards, isSuddenDeath, disable, stop]);
 	const compareDeathCards = () => {
