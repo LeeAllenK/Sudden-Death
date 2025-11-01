@@ -11,13 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist')));
-const allowedOrigins = process.env.NODE_ENV === 'production'
-	? ['https://sudden-death.onrender.com']
-	: ['http://localhost:5173'];
-
-app.use(cors({ origin: allowedOrigins }));
-
-
+app.use(cors({origin: 'https://sudden-death.onrender.com'}));
 
 mongoose.connect(process.env.MONGODB_URI)
 	.then(() => console.log('✅ Connected to MongoDB'))
