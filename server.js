@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use(cors({origin: true}));
+app.use(cors({origin: 'https://sudden-death.onrender.com'}));
 
 mongoose.connect(process.env.MONGODB_URI)
 	.then(() => console.log('✅ Connected to MongoDB'))
