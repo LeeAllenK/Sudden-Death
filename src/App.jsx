@@ -52,8 +52,9 @@ function App() {
             throw new Error('no response');
           }
           const text = await res.json();
-          console.log(text);
           setLeaders(text);
+          console.log(text);
+        console.log('VITE',import.meta.env.VITE_API_URL);
         } catch(err) {
           console.error('Fetch error:', err);
         }
@@ -62,7 +63,6 @@ function App() {
         fetchTimes();
       }
   }, [leaderboards]);
-        console.log('VITE',import.meta.env.VITE_API_URL);
 
   const handleClick = () => {
     setInstructions(true);

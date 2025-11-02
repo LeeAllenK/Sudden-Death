@@ -26,10 +26,6 @@ const timeSchema = new mongoose.Schema({
 });
 const Time = mongoose.model('Time', timeSchema);
 
-//Possible add for route to handle root request *Remember call route after so doesn't catch everything*
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 app.get('/api/stats', async (req, res) => {
 	try {
 		const times = await Time.find();
@@ -38,6 +34,10 @@ app.get('/api/stats', async (req, res) => {
 	} catch(err) {
 		res.status(500).json({ message: 'Time not found', error: err });
 	}
+});
+//Possible add for route to handle root request *Remember call route after so doesn't catch everything*
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 app.post('/api/username', async (req, res) => {
 	try {
