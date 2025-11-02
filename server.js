@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI)
 	.catch((err) => {
 		console.error(' MongoDB connection error:', err);
 		process.exit(1);
-	});
+});
 
 const timeSchema = new mongoose.Schema({
 	text: { type: String, required: true},
