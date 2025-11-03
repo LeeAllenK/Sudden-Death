@@ -47,14 +47,15 @@ function App() {
   useEffect(() => {
       const fetchTimes = async () => {
         try {
-          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/stats`);
+          const url = import.meta.env.VITE_API_LOCALHOST || import.meta.env.VITE_API_URL;
+          const res = await fetch(`${url}/api/stats`);
           if(!res.ok) {
             throw new Error('no response');
           }
           const text = await res.json();
           setLeaders(text);
           console.log(text);
-        console.log('VITE',import.meta.env.VITE_API_URL);
+          console.log('Using API URL:', url);
         } catch(err) {
           console.error('Fetch error:', err);
         }

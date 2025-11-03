@@ -30,6 +30,7 @@ app.use(cors({
 }));
 app.use((req, res, next) => {
 	console.log('Request Origin:', req.headers.origin);
+	console.log('Request Path:', req.path);
 	next();
 });
 
