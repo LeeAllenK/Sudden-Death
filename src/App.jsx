@@ -47,7 +47,7 @@ function App() {
   useEffect(() => {
       const fetchTimes = async () => {
         try {
-          const url = import.meta.env.VITE_API_LOCALHOST || import.meta.env.VITE_API_URL;
+          const url = import.meta.env.VITE_API_URL;
           const res = await fetch(`${url}/api/stats`);
           if(!res.ok) {
             throw new Error('no response');
