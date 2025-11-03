@@ -4,9 +4,9 @@ export function Username({setUsername }) {
 	const [inputUsername, setInputUsername] = useState('');
 	return (
 		<>
-			<p className="text-white text-7xl">{inputUsername.length === 3 ? 'Initials Added' :'Insert Initials' }</p>
+			<p className="text-white lg:text-6xl md:text-4xl sm:text-2xl text-xl">{inputUsername.length === 3 ? 'Initials Added' :'Initials' }</p>
 			<input
-				className='border-3 border-white text-white'
+				className='border-3 text-sm w-full border-white text-white'
 				type='text'
 				value={inputUsername}
 				onChange={(e) => {
