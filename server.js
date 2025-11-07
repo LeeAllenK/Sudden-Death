@@ -14,9 +14,11 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 const allowedOrigins = [
 	'https://sudden-death.onrender.com',
-	'capacitor://localhost', // for mobile apps
-	'http://localhost:3000', // for local dev
-	'http://192.168.1.5:3000', // mobile IP access
+	'capacitor://localhost',
+	'http://localhost:3000',
+	'http://localhost:5173',
+	'http://192.168.1.5:3000',
+	'http://192.168.1.5:5173',
 ];
 
 app.use(cors({
@@ -33,7 +35,6 @@ app.use((req, res, next) => {
 	console.log('Request Path:', req.path);
 	next();
 });
-
 
 mongoose.connect(process.env.MONGODB_URI)
 	.then(() => console.log('✅ Connected to MongoDB'))
