@@ -292,7 +292,7 @@ export function Game({ cards,setPlay }) {
 						method: 'POST',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
-							username: userName,
+							text: userName,
 							time: '00:59', // Replace with actual game time if available
 						}),
 					});
