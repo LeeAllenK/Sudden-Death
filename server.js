@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist')));
-app.options('*', cors()); // Handles preflight
+// app.options('*', cors()); // Handles preflight
 
 const allowedOrigins = [
 	'https://sudden-death.onrender.com',
