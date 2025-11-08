@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist')));
+// app.options('*', cors()); // Handles preflight
 
 const allowedOrigins = [
 	'https://sudden-death.onrender.com',
@@ -19,6 +20,8 @@ const allowedOrigins = [
 	'http://localhost:5173',
 	'http://192.168.1.5:3000',
 	'http://192.168.1.5:5173',
+	// 'http://10.0.2.2:3000'
+	
 ];
 
 app.use(cors({
