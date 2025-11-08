@@ -288,11 +288,9 @@ export function Game({ cards,setPlay }) {
 		if(winner && userName.length === 3) {
 			const postWinner = async () => {
 				try {
-					const res = await fetch(`/api/username`, {
+					const res = await fetch(`${import.meta.env.VITE_API_URL}/api/username`, {
 						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
+						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
 							username: userName,
 							time: '00:59', // Replace with actual game time if available
