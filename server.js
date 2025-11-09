@@ -21,7 +21,6 @@ const allowedOrigins = [
 	'http://192.168.1.5:3000',
 	'http://192.168.1.5:5173',
 	// 'http://10.0.2.2:3000'
-	
 ];
 
 app.use(cors({
