@@ -48,7 +48,7 @@ function App() {
       const fetchTimes = async () => {
         try {
           const url = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_LOCALHOST ;
-          const res = await fetch(`${url}/api/stats`);
+          const res = await fetch(`/api/stats`);
           if(!res.ok) {
             throw new Error('no response');
           }
