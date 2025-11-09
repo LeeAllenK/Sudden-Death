@@ -288,7 +288,9 @@ export function Game({ cards,setPlay }) {
 		if(winner && userName.length === 3) {
 			const postWinner = async () => {
 				try {
-					const res = await fetch(`${import.meta.env.VITE_API_URL}/api/username`, {
+					const url = import.meta.env.VITE_API_URL
+					if(!url)console.error('No api')
+					const res = await fetch(`${url}/api/username`, {
 						method: 'POST',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
