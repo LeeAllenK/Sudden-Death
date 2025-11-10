@@ -320,7 +320,7 @@ export function Game({ cards,setPlay }) {
 						>
 							SUDDEN DEATH
 						</button>
-						<div className="grid grid-cols-2 items-center place-items-center w-full lg:h-40 md:h-30 sm:h-30 h-20 gap-0">
+						<div className="grid grid-cols-2 items-center place-items-center w-fit  lg:h-40 md:h-30 sm:h-30 h-fit gap-0">
 							{deathCards.map((card, i) => (
 								<img className="w-fit lg:h-40 md:h-30 sm:h-30 h-17" key={i} src={card.image} alt="Death Card" />
 							))}
