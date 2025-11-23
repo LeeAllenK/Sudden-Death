@@ -52,7 +52,7 @@ export function Clock({winner}){
 			if(winner.includes('YOU WIN!') && (minutes > 0 || seconds > 0) && username.length === 3){
 				saveTime(username,minutes,seconds)
 			}
-				console.log('WINNER',winner)
+				// console.log('WINNER',winner)
 		},[winner,username,minutes,seconds])
 	return(
 		<div className="grid justify-center items-end grid-rows-[auto_auto] w-full h-full">

@@ -1,7 +1,7 @@
 export const gameInitialState = {
-
 	isSuddenDeath: false,
 	stop: false,
+	back: false,
 	enableSuddenDeathPlayer: false,
 	disable: false
 }
