@@ -3,7 +3,8 @@ export const gameInitialState = {
 	stop: false,
 	back: false,
 	enableSuddenDeathPlayer: false,
-	disable: false
+	disable: false,
+	winner: '',
 }
 // const [deck, setDeck] = useState(backOfCard);
 // 	const [isSuddenDeath, setIsSuddenDeath] = useState(false);

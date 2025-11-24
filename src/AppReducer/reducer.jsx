@@ -1,57 +1,51 @@
 
 export function gameReducer(state,action){
 	switch(action.type){
-		case 'Showplayers':{
-			
-			return{...state,back:true}
+		case "ShowPlayers":{
+			console.log('show');
+			return{...state, enableSuddenDeathPlayer:false}
 		}
-		case 'PlayerTwo-SD':{
-			console.log('NotSDDSDFADA')
-			return { ...state, stop:true, disable:false}
+		case "Flipcard-Face":{
+			// console.log('FlipFace');
+			return{...state, disable: false}
 		}
-		case 'PlayerTwo-EnableSuddenDeathPlayer':{
-			return { ...state, enableSuddenDeathPlayer:true}
-		}	
-		case 'PlayerTwo-!SD':{
-			return { ...state, disable:true}
-		}	
-		case 'P1-P2-vs-Deck':{
-			return { ...state, enableSuddenDeathPlayer:true,disable:false}
-		}
-		case 'SuddenDeath':{
-			console.log('sudden')
-			return { ...state, isSuddenDeath: action.isSuddenDeath }
-		}
-		case 'SuddenDeath-Comp':{
-			console.log('sudden')
-			return { ...state, isSuddenDeath: action.isSuddenDeath}
-		}
-		case 'Resume-Round':{
-			return { ...state, enableSuddenDeathPlayer:false, stop: true }
-		}
-		case 'SuddenDeath-Round':{
-			console.log('start round');
-			return { ...state,	isSuddenDeath: action.isSuddenDeath}
-		}
-		case 'Flip-Front':{
-			return { ...state, disable:false }
-		}
-		case 'Flip-Back':{
-			return { ...state, back: false}
-		}
-		case 'Flip-Back-SD':{
-			return { ...state, enableSuddenDeathPlayer:false}
-		}
-		case 'Reshuffle':{
-			
-			return { ...state, enableSuddenDeathPlayer: false, isSuddenDeath: false,disable:false, stop:false, back:false }
-		}
-		case 'Stop':{
-			return { ...state, stop: false}
-		}
-		case 'Enable-Card':{
-			console.log(state.disable,'DISABLE')
+		case "PlayerTwo-Comp-Card":{
+			// console.log('Normal-Comp');
 			return{...state, disable: true}
+		}
+		case "PlayerTwo-SD-Comp-Card":{
+			return{...state, disable:false}
+		}	
+		case "SD-Player":{
+			return{...state,enableSuddenDeathPlayer:action.enableSuddenDeathPlayer}
+		}
+		case "Enable-SuddenDeathPlayer":{
+				// console.log('enableSD')
+			return{...state,enableSuddenDeathPlayer:true, disable: false}
+		}
+		case "Start-SD-Round":{
+			return{...state, isSuddenDeath: true}
+		}
+		case "Compare-DeathCards":{
+			return{...state, disable: true}
+		}
+		case "Comp-Deathcards-Win":{
+			// console.log('comp-death-Win')
+			return{...state, isSuddenDeath:action.isSuddenDeath}
+		}
+		case "Comp-Deathcards-End":{
+			// console.log('comp-death-Win')
+			return{...state, enableSuddenDeathPlayer:false}
+		}
+		case "Reshuffle-Cards":{
+			// console.log('Reshuffle');
+			return{...state, isSuddenDeath: false, enableSuddenDeathPlayer:false, disable: false, winner: action.winner}
+		}
+		case "Winner":{
+			return{...state, disable: true, winner: action.winner}
+		}
+		case "Winner-PlayerOneTurn":{
+			return{...state, winner: action.winner}
 		}
 		default: return state;
 	}
