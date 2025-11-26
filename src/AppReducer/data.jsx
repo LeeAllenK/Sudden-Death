@@ -4,7 +4,10 @@ export const gameInitialState = {
 	back: false,
 	enableSuddenDeathPlayer: false,
 	disable: false,
+	backImage: `https:www.deckofcardsapi.com/static/img/back.png`,
 	winner: '',
+	player: {one:[], two:[], deck:[]},
+	deathCards: [],
 }
 // const [deck, setDeck] = useState(backOfCard);
 // 	const [isSuddenDeath, setIsSuddenDeath] = useState(false);

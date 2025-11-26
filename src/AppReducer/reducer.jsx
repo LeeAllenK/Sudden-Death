@@ -1,20 +1,43 @@
 
 export function gameReducer(state,action){
 	switch(action.type){
+		case "Assign-Cards":{
+			console.log('Assgncard', state.player)
+			return { ...state, back: true,player: action.player }
+		}
 		case "ShowPlayers":{
 			console.log('show');
 			return{...state, enableSuddenDeathPlayer:false}
 		}
+		case "Player-Move":{
+			return {...state,player: action.player, disable: action.disable,stop: action.stop,
+			};
+		}
 		case "Flipcard-Face":{
 			// console.log('FlipFace');
-			return{...state, disable: false}
+			return{...state,backImage:action.backImage, disable: false}
+		}
+		case "Flipcard-Back":{
+			// console.log('FlipFace');
+			return{...state, back: false}
+		}
+		case "Flip-Card":{
+			console.log('FlipFace');
+			return{...state, stop:false}
+		}
+		case "SD-Card-PlayerOne":{
+			console.log('PLAYERONE SUDDEN CARD')
+			return{...state, player:{...state.player,...action.player}}
+		}
+		case "PlayerOne-Deathcard":{
+			return{...state, deathCards:action.deathCards}
 		}
 		case "PlayerTwo-Comp-Card":{
-			// console.log('Normal-Comp');
-			return{...state, disable: true}
+			console.log('Normal-Comp');
+			return{...state, disable: true,player:{ ...state.player,...action.player}}
 		}
 		case "PlayerTwo-SD-Comp-Card":{
-			return{...state, disable:false}
+			return{...state,player:{...state.player,...action.player},deathCards:action.deathCards, disable: false, stop: true}
 		}	
 		case "SD-Player":{
 			return{...state,enableSuddenDeathPlayer:action.enableSuddenDeathPlayer}
@@ -29,17 +52,25 @@ export function gameReducer(state,action){
 		case "Compare-DeathCards":{
 			return{...state, disable: true}
 		}
+		case "Winner-DC":{
+			// console.log('comp-death-Win')
+			return{...state, player: action.player,deathCards:action.deathCards}
+		}
+		case "Winner-DC-Player":{
+			// console.log('comp-death-Win')
+			return { ...state, player: action.player, deathCards: action.deathCards }
+		}
 		case "Comp-Deathcards-Win":{
 			// console.log('comp-death-Win')
 			return{...state, isSuddenDeath:action.isSuddenDeath}
 		}
 		case "Comp-Deathcards-End":{
 			// console.log('comp-death-Win')
-			return{...state, enableSuddenDeathPlayer:false}
+			return{...state, enableSuddenDeathPlayer:false, stop:false}
 		}
 		case "Reshuffle-Cards":{
 			// console.log('Reshuffle');
-			return{...state, isSuddenDeath: false, enableSuddenDeathPlayer:false, disable: false, winner: action.winner}
+			return{...state, player:action.player, isSuddenDeath: false, enableSuddenDeathPlayer:false,backImage:action.backImage, stop: false, disable: false, winner: action.winner,deathCards:[]}
 		}
 		case "Winner":{
 			return{...state, disable: true, winner: action.winner}
