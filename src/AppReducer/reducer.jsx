@@ -3,7 +3,7 @@ export function gameReducer(state,action){
 	switch(action.type){
 		case "Assign-Cards":{
 			console.log('Assgncard', state.player)
-			return { ...state, back: true,player: action.player }
+			return { ...state, back: true,player: {...state.player,...action.player} }
 		}
 		case "ShowPlayers":{
 			console.log('show');
@@ -37,7 +37,7 @@ export function gameReducer(state,action){
 			return{...state, disable: true,player:{ ...state.player,...action.player}}
 		}
 		case "PlayerTwo-SD-Comp-Card":{
-			return{...state,player:{...state.player,...action.player},deathCards:action.deathCards, disable: false, stop: true}
+			return{...state,player:{...state.player,...action.player}, deathCards:action.deathCards, disable: false, stop: true}
 		}	
 		case "SD-Player":{
 			return{...state,enableSuddenDeathPlayer:action.enableSuddenDeathPlayer}

@@ -54,9 +54,12 @@ export function Game({ cards, setPlay }) {
 
 	useEffect(() => {
 		const showPlayers = () => {
-			const playerOne = cards.slice(0, 6);
-			const playerTwo = cards.slice(6, 12);
-			const deck = cards.slice(12, cards.length);
+			// const playerOne = cards.slice(0, 6);
+			// const playerTwo = cards.slice(6, 12);
+			// const deck = cards.slice(12, cards.length);
+			const playerOne = cards.slice(0, 6).map(c => ({ ...c, image: c.image }));
+			const playerTwo = cards.slice(6, 12).map(c => ({ ...c, image: c.image }));
+			const deck = cards.slice(12).map(c => ({ ...c, image: c.image }));
 			// setPlayer({ one: playerOne, two: playerTwo, deck: deck });
 			dispatch({ type: "Assign-Cards", back: state.back, player: { one: playerOne, two: playerTwo, deck: deck }})
 			// setBack(true)
