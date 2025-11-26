@@ -390,7 +390,7 @@ export function Game({ cards, setPlay }) {
  											className=" grid  h-full max-h-full w-full max-w-full cursor-default  "
  											type="image"
  											alt="Card Image"
- 											src={state.isSuddenDeath && !state.deathCards[0] || state.back ? backOfCard : card.image}
+ 											src={ state.back ? backOfCard: state.isSuddenDeath && !state.deathCards[1]? backOfCard: card.image}
  										/>
  									</li>
  								))}
