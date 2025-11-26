@@ -51,6 +51,7 @@ export function Game({ cards, setPlay }) {
 		deck: []
 	});
 	// const [back, setBack] = useState(false);
+	//CARD IMAGE PROBLEM WHEN DEPLOYED
 	useEffect(() => {
 		cards.forEach(card => {
 			const img = new Image();
@@ -425,6 +426,7 @@ export function Game({ cards, setPlay }) {
  											src={state.isSuddenDeath && !state.deathCards[1] || state.back ? backOfCard : card.image}
  											onClick={() => handlePlayerTwo(card, i)}
  											disabled={state.disable || (state.isSuddenDeath && state.deathCards.length < 1) || state.deathCards.length === 2 }
+												onError={(e) => { e.currentTarget.src = backOfCard; }}
  										/>
  									</li>
  								))}
