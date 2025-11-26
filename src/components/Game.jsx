@@ -51,6 +51,12 @@ export function Game({ cards, setPlay }) {
 		deck: []
 	});
 	// const [back, setBack] = useState(false);
+	useEffect(() => {
+		cards.forEach(card => {
+			const img = new Image();
+			img.src = card.image;
+		});
+	}, [cards]);
 
 	useEffect(() => {
 		const showPlayers = () => {
