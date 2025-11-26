@@ -57,6 +57,7 @@ export function Game({ cards, setPlay }) {
 			const img = new Image();
 			img.src = card.image;
 		});
+		
 	}, [cards]);
 
 	useEffect(() => {
@@ -369,7 +370,7 @@ export function Game({ cards, setPlay }) {
  						<Clock winner={state.winner} />
  						<div className="grid grid-cols-2 items-center place-items-center w-fit  lg:h-40 md:h-30 sm:h-30 h-fit gap-0">
  							{state.deathCards.map((card, i) => (
- 								<img className="w-fit lg:h-40 md:h-30 sm:h-30 h-17" key={i} src={card.image} alt="Death Card" />
+ 								<img className="w-fit lg:h-40 md:h-30 sm:h-30 h-17" key={i} src={card?.image} alt="Death Card" />
  							))}
  						</div>
  						<HomeBtn onClick={() => setPlay((p) => !p)}/>
@@ -391,7 +392,7 @@ export function Game({ cards, setPlay }) {
  											className=" grid  h-full max-h-full w-full max-w-full cursor-default  "
  											type="image"
  											alt="Card Image"
- 											src={(state.isSuddenDeath && !state.deathCards[0]) || state.back ? backOfCard : card.image}
+ 											src={(state.isSuddenDeath && !state.deathCards[0]) || state.back ? backOfCard : card?.image}
  										/>
  									</li>
  								))}
@@ -423,10 +424,10 @@ export function Game({ cards, setPlay }) {
  											className="grid h-full max-h-full w-full max-w-full "
  											type="image"
  											alt="Card Image"
- 											src={(state.isSuddenDeath && !state.deathCards[1]) || state.back ? backOfCard : card.image}
+ 											src={(state.isSuddenDeath && !state.deathCards[1]) || state.back ? backOfCard : card?.image}
  											onClick={() => handlePlayerTwo(card, i)}
  											disabled={state.disable || (state.isSuddenDeath && state.deathCards.length < 1) || state.deathCards.length === 2 }
-												onError={(e) => { e.currentTarget.src = backOfCard; }}
+											onError={(e) => { e.currentTarget.src = backOfCard; }}
  										/>
  									</li>
  								))}
