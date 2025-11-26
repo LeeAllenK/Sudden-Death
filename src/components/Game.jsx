@@ -424,7 +424,11 @@ export function Game({ cards, setPlay }) {
  											className="grid h-full max-h-full w-full max-w-full "
  											type="image"
  											alt="Card Image"
- 											src={(state.isSuddenDeath && !state.deathCards[1]) || state.back ? backOfCard : card?.image}
+												src={state.back
+													? backOfCard
+													: state.isSuddenDeath && !state.deathCards[1]
+														? backOfCard
+														: card?.image}
  											onClick={() => handlePlayerTwo(card, i)}
  											disabled={state.disable || (state.isSuddenDeath && state.deathCards.length < 1) || state.deathCards.length === 2 }
 											onError={(e) => { e.currentTarget.src = backOfCard; }}
