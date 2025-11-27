@@ -78,8 +78,7 @@ export function Game({ cards, setPlay }) {
 		}, 600)
 		dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
 		// setEnableSuddenDeathPlayer(false);
-		if(cards){
-
+		if(!state.enableSuddenDeathPlayer){
 		showPlayers();
 		}
 		return () => clearTimeout(flipBack);
