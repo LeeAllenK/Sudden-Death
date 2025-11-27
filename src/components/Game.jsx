@@ -56,7 +56,7 @@ export function Game({ cards, setPlay }) {
 		cards.forEach(card => {
 			const img = new Image();
 			img.src = card.image;
-		console.log('IMGSRC',img)
+		// console.log('IMGSRC',img)
 		});
 	}, [cards]);
 
@@ -78,7 +78,10 @@ export function Game({ cards, setPlay }) {
 		}, 600)
 		dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
 		// setEnableSuddenDeathPlayer(false);
+		if(cards){
+
 		showPlayers();
+		}
 		return () => clearTimeout(flipBack);
 	}, [cards]);
 
