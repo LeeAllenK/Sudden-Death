@@ -56,8 +56,8 @@ export function Game({ cards, setPlay }) {
 		cards.forEach(card => {
 			const img = new Image();
 			img.src = card.image;
+		console.log('IMGSRC',img)
 		});
-		
 	}, [cards]);
 
 	useEffect(() => {
@@ -424,11 +424,7 @@ export function Game({ cards, setPlay }) {
  											className="grid h-full max-h-full w-full max-w-full "
  											type="image"
  											alt="Card Image"
-												src={state.back
-													? backOfCard
-													: state.isSuddenDeath && !state.deathCards[1]
-														? backOfCard
-														: card?.image}
+ 											src={(state.isSuddenDeath && !state.deathCards[1]) || state.back ? backOfCard : card?.image}
  											onClick={() => handlePlayerTwo(card, i)}
  											disabled={state.disable || (state.isSuddenDeath && state.deathCards.length < 1) || state.deathCards.length === 2 }
 											onError={(e) => { e.currentTarget.src = backOfCard; }}
