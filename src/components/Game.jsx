@@ -60,67 +60,63 @@ export function Game({ cards, setPlay }) {
 		});
 	}, [cards]);
 
-	// useEffect(() => {
-	// 	const showPlayers = () => {
-	// 		const playerOne = cards.slice(0, 6);
-	// 		const playerTwo = cards.slice(6, 12);
-	// 		const deck = cards.slice(12, cards.length);
-	// 		// const playerOne = cards.slice(0, 6).map(c => ({ ...c, image: c.image }));
-	// 		// const playerTwo = cards.slice(6, 12).map(c => ({ ...c, image: c.image }));
-	// 		// const deck = cards.slice(12).map(c => ({ ...c, image: c.image }));
-	// 		// setPlayer({ one: playerOne, two: playerTwo, deck: deck });
-	// 		dispatch({ type: "Assign-Cards", back: state.back, player: { one: playerOne, two: playerTwo, deck: deck }})
-	// 		// setBack(true)
-	// 	};
-	// 	const flipBack = setTimeout(() => {
-	// 		dispatch({type:"Flipcard-Back",back: state.back})
-	// 		// setBack(false)
-	// 	}, 600)
-	// 	dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
-	// 	// setEnableSuddenDeathPlayer(false);
-	// 	if(cards.length > 0 ){
-		
-	// 	showPlayers();
-	// 	}
-		
-	// 	return () => clearTimeout(flipBack);
-	// }, [cards]);
-	// 1. Assign cards once cards are ready
 	useEffect(() => {
-		if(cards.length > 0) {
+		const showPlayers = () => {
 			const playerOne = cards.slice(0, 6);
 			const playerTwo = cards.slice(6, 12);
-			const deck = cards.slice(12);
-
-			dispatch({
-				type: "Assign-Cards",
-				back: state.back,
-				player: { one: playerOne, two: playerTwo, deck }
-			});
-		}
+			const deck = cards.slice(12, cards.length);
+			dispatch({ type: "Assign-Cards", back: state.back, player: { one: playerOne, two: playerTwo, deck: deck }})
+			// setBack(true)
+		};
 		const flipBack = setTimeout(() => {
 			dispatch({type:"Flipcard-Back",back: state.back})
 			// setBack(false)
-			}, 600)
+		}, 600)
+		dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
+		// setEnableSuddenDeathPlayer(false);
+	
+			showPlayers();
+		
+		
 		return () => clearTimeout(flipBack);
 	}, [cards]);
+	// 1. Assign cards once cards are ready
+	// useEffect(() => {
+	// 	if(cards.length > 0) {
+	// 		const playerOne = cards.slice(0, 6);
+	// 		const playerTwo = cards.slice(6, 12);
+	// 		const deck = cards.slice(12);
 
-	// 2. Show players only after player state is populated
-	useEffect(() => {
-		if(state.player?.one?.length && state.player?.two?.length) {
-			dispatch({
-				type: "ShowPlayers",
-				enableSuddenDeathPlayer: state.enableSuddenDeathPlayer
-			});
-		}
-	}, [state.player, state.enableSuddenDeathPlayer]);
+	// 		dispatch({
+	// 			type: "Assign-Cards",
+	// 			back: state.back,
+	// 			player: { one: playerOne, two: playerTwo, deck }
+	// 		});
+	// 	}
+	// 	const flipBack = setTimeout(() => {
+	// 		dispatch({type:"Flipcard-Back",back: state.back})
+	// 		// setBack(false)
+	// 		}, 600)
+	// 	return () => clearTimeout(flipBack);
+	// }, [cards]);
+
+	// // 2. Show players only after player state is populated
+	// useEffect(() => {
+	// 	if(state.player?.one?.length && state.player?.two?.length) {
+	// 		dispatch({
+	// 			type: "ShowPlayers",
+	// 			enableSuddenDeathPlayer: state.enableSuddenDeathPlayer
+	// 		});
+	// 	}
+	// }, [state.player, state.enableSuddenDeathPlayer]);
 
 	useEffect(() => {
 		const flipCard = () => {
-			if(state.player?.deck?.length > 0 && !state.back) {
+			if(state.player?.deck?.length > 0 && !state.back ) {
 				// setDeck(player.deck[0].image);
 				dispatch({type:"Flipcard-Face",backImage: state.player.deck[0].image, disable: state.disable})
 				// setDisable(false);
+					
 			}
 		};
 		const interval = setInterval(() => {
@@ -136,6 +132,7 @@ export function Game({ cards, setPlay }) {
 			clearInterval(interval)
 		} else {
 			flipCard();
+				console.log('face')
 		}
 		return () => clearInterval(interval);
 	}, [state.player.two, state.player.deck, state.stop, state.isSuddenDeath, state.disable, state.back]);
@@ -166,7 +163,7 @@ export function Game({ cards, setPlay }) {
 		if(state.isSuddenDeath) {
 			const updateTwo = state.two?.filter((_, index) => index !== i);
 			const chosenCard = state.player?.two?.[i];
-			dispatch({ type: "PlayerTwo-SD-Comp-Card", disable: state.disable, stop: state.stop, player:{...state.player,one: state.player.one, two: state.player.two.filter((_, index) => index !== i), deck: state.player.deck.slice(1)},deathCards:[...state.deathCards,chosenCard]})
+			dispatch({ type: "PlayerTwo-SD-Comp-Card", disable: state.disable, stop: state.stop, player:{...state.player, one:state.player.one, two: state.player.two.filter((_, index) => index !== i), deck: state.player.deck.slice(1)},deathCards:[...state.deathCards,chosenCard]})
 			// setDisable(false);
 			// setStop(true);
 			// setPlayer(prev => {
@@ -352,7 +349,14 @@ export function Game({ cards, setPlay }) {
 				// 		deck: prev.deck
 				// 	};
 				// });
-				dispatch({ type: "Winner-DC", player: { ...state.player, one: state.player.one.filter((card) => card !== cardOne), two:[...state.player.two,...state.deathCards] , deck: state.player.deck.slice(1)},deathCards:state.deathCards.slice(2)})
+				// dispatch({ type: "Winner-DC-PlayerOne", player: { ...state.player, one: state.player.one.filter((card) => card !== cardOne), two:[...state.player.two,...state.deathCards] , deck: state.player.deck.slice(1)},deathCards:state.deathCards.slice(2)})
+				dispatch({
+					type: "Winner-DC",
+					winner: "Player-One",
+					deathCards: state.deathCards,
+					deck: state.player.deck.slice(1)
+				})
+
 				// setDeathCards(deathCards.slice(2));
 				dispatch({type: "Comp-Deathcards-Win", isSuddenDeath: !state.isSuddenDeath})
 				// setIsSuddenDeath(!state.isSuddenDeath);
@@ -368,7 +372,23 @@ export function Game({ cards, setPlay }) {
 				// 	one: [...prev.one, ...deathCards],
 				// 	deck: prev.deck.slice(1)
 				// }));
-				dispatch({ type:"Winner-DC-Player", player: { ...state.player, one: [...state.player.one, ...deathCards], deck: state.player?.deck?.slice(1)},deathCards:state.deathCards.slice(2)})
+				// dispatch({
+				// 	type: "Winner-DC-PlayerTwo",
+				// 	player: {
+				// 		...state.player,
+				// 		one: [...state.player.two, ...state.deathCards], // remove Player One’s death cards
+				// 		two: state.player.two.filter((card) => !state.deathCards.includes(card)),                          // give them to Player Two
+				// 		deck: state.player.deck.slice(1)
+				// 	},
+				// 	deathCards: []
+				// })
+				dispatch({
+					type: "Winner-DC",
+					winner: "Player-Two",
+					deathCards: state.deathCards,
+					deck: state.player.deck.slice(1)
+				})
+
 				// setDeathCards(deathCards.slice(2));
 				dispatch({ type: "Comp-Deathcards-Win", isSuddenDeath:!state.isSuddenDeath })
 				// setIsSuddenDeath(!state.isSuddenDeath);
@@ -459,7 +479,7 @@ export function Game({ cards, setPlay }) {
  											className="grid h-full max-h-full w-full max-w-full "
  											type="image"
  											alt="Card Image"
-											src={state.isSuddenDeath && !state.deathCards[0] ? backOfCard : state.back ? backOfCard : card?.image || backOfCard }
+											src={state.isSuddenDeath && !state.deathCards[1] ? backOfCard : state.back ? backOfCard : card?.image || backOfCard }
  											onClick={() => handlePlayerTwo(card, i)}
  											disabled={state.disable || (state.isSuddenDeath && state.deathCards.length < 1) || state.deathCards.length === 2 }
 											onError={(e) => { e.currentTarget.src = backOfCard; }}

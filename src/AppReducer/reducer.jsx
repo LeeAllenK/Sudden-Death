@@ -52,14 +52,43 @@ export function gameReducer(state,action){
 		case "Compare-DeathCards":{
 			return{...state, disable: true}
 		}
-		case "Winner-DC":{
-			// console.log('comp-death-Win')
-			return{...state, player: action.player,deathCards:action.deathCards}
+		// case "Winner-DC-PlayerOne":{
+		// 	// console.log('comp-death-Win')
+		// 	return{...state, player: action.player,deathCards:action.deathCards}
+		// }
+		// case "Winner-DC-PlayerTwo":{
+		// 	// console.log('comp-death-Win')
+		// 	return { ...state, player: action.player, deathCards: action.deathCards }
+		// }
+		case "Winner-DC": {
+			if(action.winner === "Player-One") {
+				console.log('PLAYER111111111111111111 WINS')
+				return {
+					...state,
+					player: {
+						...state.player,
+						one: state.player.one.filter(c => !action.deathCards.includes(c)),
+						two: [...state.player.two, ...action.deathCards],
+						deck: action.deck
+					},
+					deathCards: []
+				};
+			} else if(action.winner === "Player-Two") {
+				console.log('PLAYER22222222222222 WINS')
+				return {
+					...state,
+					player: {
+						...state.player,
+						one: [...state.player.one, ...action.deathCards],
+						two: state.player.two.filter(c => !action.deathCards.includes(c)),
+						deck: action.deck
+					},
+					deathCards: []
+				};
+			}
+			return state;
 		}
-		case "Winner-DC-Player":{
-			// console.log('comp-death-Win')
-			return { ...state, player: action.player, deathCards: action.deathCards }
-		}
+
 		case "Comp-Deathcards-Win":{
 			// console.log('comp-death-Win')
 			return{...state, isSuddenDeath:action.isSuddenDeath}
