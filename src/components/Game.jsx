@@ -6,7 +6,7 @@ import { ResetBtn } from './Reset-Btn';
 import {gameInitialState} from '../AppReducer/data';
 import {gameReducer} from '../AppReducer/reducer';
 
-const backOfCard = `https//:www.deckofcardsapi.com/static/img/back.png`;
+const backOfCard = `https://deckofcardsapi.com/static/img/back.png`;
 
 function cardValue(card) {
 	switch(card.value) {
