@@ -60,31 +60,60 @@ export function Game({ cards, setPlay }) {
 		});
 	}, [cards]);
 
+	// useEffect(() => {
+	// 	const showPlayers = () => {
+	// 		const playerOne = cards.slice(0, 6);
+	// 		const playerTwo = cards.slice(6, 12);
+	// 		const deck = cards.slice(12, cards.length);
+	// 		// const playerOne = cards.slice(0, 6).map(c => ({ ...c, image: c.image }));
+	// 		// const playerTwo = cards.slice(6, 12).map(c => ({ ...c, image: c.image }));
+	// 		// const deck = cards.slice(12).map(c => ({ ...c, image: c.image }));
+	// 		// setPlayer({ one: playerOne, two: playerTwo, deck: deck });
+	// 		dispatch({ type: "Assign-Cards", back: state.back, player: { one: playerOne, two: playerTwo, deck: deck }})
+	// 		// setBack(true)
+	// 	};
+	// 	const flipBack = setTimeout(() => {
+	// 		dispatch({type:"Flipcard-Back",back: state.back})
+	// 		// setBack(false)
+	// 	}, 600)
+	// 	dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
+	// 	// setEnableSuddenDeathPlayer(false);
+	// 	if(cards.length > 0 ){
+		
+	// 	showPlayers();
+	// 	}
+		
+	// 	return () => clearTimeout(flipBack);
+	// }, [cards]);
+	// 1. Assign cards once cards are ready
 	useEffect(() => {
-		const showPlayers = () => {
+		if(cards.length > 0) {
 			const playerOne = cards.slice(0, 6);
 			const playerTwo = cards.slice(6, 12);
-			const deck = cards.slice(12, cards.length);
-			// const playerOne = cards.slice(0, 6).map(c => ({ ...c, image: c.image }));
-			// const playerTwo = cards.slice(6, 12).map(c => ({ ...c, image: c.image }));
-			// const deck = cards.slice(12).map(c => ({ ...c, image: c.image }));
-			// setPlayer({ one: playerOne, two: playerTwo, deck: deck });
-			dispatch({ type: "Assign-Cards", back: state.back, player: { one: playerOne, two: playerTwo, deck: deck }})
-			// setBack(true)
-		};
+			const deck = cards.slice(12);
+
+			dispatch({
+				type: "Assign-Cards",
+				back: state.back,
+				player: { one: playerOne, two: playerTwo, deck }
+			});
+		}
 		const flipBack = setTimeout(() => {
 			dispatch({type:"Flipcard-Back",back: state.back})
 			// setBack(false)
-		}, 600)
-		dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
-		// setEnableSuddenDeathPlayer(false);
-		if(cards.length > 0 ){
-		
-		showPlayers();
-		}
-		
+			}, 600)
 		return () => clearTimeout(flipBack);
 	}, [cards]);
+
+	// 2. Show players only after player state is populated
+	useEffect(() => {
+		if(state.player?.one?.length && state.player?.two?.length) {
+			dispatch({
+				type: "ShowPlayers",
+				enableSuddenDeathPlayer: state.enableSuddenDeathPlayer
+			});
+		}
+	}, [state.player, state.enableSuddenDeathPlayer]);
 
 	useEffect(() => {
 		const flipCard = () => {
