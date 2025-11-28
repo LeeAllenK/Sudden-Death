@@ -34,6 +34,7 @@ function App() {
       try {
         const res = await fetch(url);
         const data = await res.json();
+      
         setCards(data.cards);
       } catch(err) {
         console.error(err);

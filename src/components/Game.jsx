@@ -425,7 +425,9 @@ export function Game({ cards, setPlay }) {
  											className=" grid  h-full max-h-full w-full max-w-full cursor-default  "
  											type="image"
  											alt="Card Image"
-											src={state.isSuddenDeath && !state.deathCards[0]? backOfCard: state.back	? backOfCard: card?.image || backOfCard}
+											src={state.isSuddenDeath && !state.deathCards[0]? backOfCard: state.back ? backOfCard: card?.image || backOfCard}
+											onError={(e) => { e.currentTarget.src = backOfCard; }}
+
  										/>
  									</li>
  								))}
@@ -433,7 +435,7 @@ export function Game({ cards, setPlay }) {
  						<div className="grid lg:place-items-center  md:place-items-center sm:place-items-center place-items-start justify-center w-full h-fit">
  							{state.winner?.length === 0 && state.player?.deck?.length > 0 && (
  								<li className="grid ">
- 									<img className="lg:h-full md:h-50 sm:h-20 w-20  " alt="Card Image" src={state.backImage} />
+									<img className="lg:h-full md:h-50 sm:h-20 w-20  " alt="Card Image" src={state.backImage} onError={(e) => { e.currentTarget.src = backOfCard;}}/>
  								</li>
  							)}
  							{state.winner === `YOU DON'T WIN!` && (
