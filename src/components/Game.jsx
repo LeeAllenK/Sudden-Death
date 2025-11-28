@@ -78,9 +78,11 @@ export function Game({ cards, setPlay }) {
 		}, 600)
 		dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
 		// setEnableSuddenDeathPlayer(false);
-		if(!state.enableSuddenDeathPlayer){
+		if(cards.length > 0 ){
+		
 		showPlayers();
 		}
+		
 		return () => clearTimeout(flipBack);
 	}, [cards]);
 
@@ -394,7 +396,7 @@ export function Game({ cards, setPlay }) {
  											className=" grid  h-full max-h-full w-full max-w-full cursor-default  "
  											type="image"
  											alt="Card Image"
- 											src={(state.isSuddenDeath && !state.deathCards[0]) || state.back ? backOfCard : card?.image}
+											src={state.isSuddenDeath && !state.deathCards[0]? backOfCard: state.back	? backOfCard: card?.image || backOfCard}
  										/>
  									</li>
  								))}
@@ -426,7 +428,7 @@ export function Game({ cards, setPlay }) {
  											className="grid h-full max-h-full w-full max-w-full "
  											type="image"
  											alt="Card Image"
- 											src={(state.isSuddenDeath && !state.deathCards[1]) || state.back ? backOfCard : card?.image}
+											src={state.isSuddenDeath && !state.deathCards[0] ? backOfCard : state.back ? backOfCard : card?.image || backOfCard }
  											onClick={() => handlePlayerTwo(card, i)}
  											disabled={state.disable || (state.isSuddenDeath && state.deathCards.length < 1) || state.deathCards.length === 2 }
 											onError={(e) => { e.currentTarget.src = backOfCard; }}
