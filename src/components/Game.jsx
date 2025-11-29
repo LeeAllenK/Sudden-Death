@@ -3,8 +3,8 @@ import { useState, useEffect, useReducer } from 'react';
 import { Clock } from './Clock';
 import { HomeBtn } from './Home-Btn';
 import { ResetBtn } from './Reset-Btn';
-import {gameInitialState} from '../AppReducer/data';
-import {gameReducer} from '../AppReducer/reducer';
+import {gameInitialState} from '../Reducer/data';
+import {gameReducer} from '../Reducer/gameReducer';
 
 const backOfCard = `https://deckofcardsapi.com/static/img/back.png`;
 
@@ -36,94 +36,55 @@ function cardSuit(card) {
 			return parseInt(card.suit);
 	}
 }
-export function Game({ cards, setPlay }) {
+export function Game({ cards, play, gameDispatch }) {
 	const [state, dispatch] = useReducer(gameReducer,gameInitialState)
-	const [deck, setDeck] = useState(backOfCard);
-	// const [isSuddenDeath, setIsSuddenDeath] = useState(false);
-	const [deathCards, setDeathCards] = useState([]);
-	// const [enableSuddenDeathPlayer, setEnableSuddenDeathPlayer] = useState(false);
-	// const [winner, setWinner] = useState('');
-	// const [disable, setDisable] = useState(false);
-	// const [stop, setStop] = useState(false)
-	const [player, setPlayer] = useState({
-		one: [],
-		two: [],
-		deck: []
-	});
-	// const [back, setBack] = useState(false);
 	//CARD IMAGE PROBLEM WHEN DEPLOYED
-	useEffect(() => {
-		cards.forEach(card => {
-			const img = new Image();
-			img.src = card.image;
-		// console.log('IMGSRC',img)
-		});
-	}, [cards]);
-
-	useEffect(() => {
-		const showPlayers = () => {
-			const playerOne = cards.slice(0, 6);
-			const playerTwo = cards.slice(6, 12);
-			const deck = cards.slice(12, cards.length);
-			dispatch({ type: "Assign-Cards", back: state.back, player: { one: playerOne, two: playerTwo, deck: deck }})
-			// setBack(true)
-		};
-		const flipBack = setTimeout(() => {
-			dispatch({type:"Flipcard-Back",back: state.back})
-			// setBack(false)
-		}, 600)
-		dispatch({type:"ShowPlayers", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer})
-		// setEnableSuddenDeathPlayer(false);
-	
-			showPlayers();
-		
-		
-		return () => clearTimeout(flipBack);
-	}, [cards]);
-	// 1. Assign cards once cards are ready
 	// useEffect(() => {
-	// 	if(cards.length > 0) {
-	// 		const playerOne = cards.slice(0, 6);
-	// 		const playerTwo = cards.slice(6, 12);
-	// 		const deck = cards.slice(12);
-
-	// 		dispatch({
-	// 			type: "Assign-Cards",
-	// 			back: state.back,
-	// 			player: { one: playerOne, two: playerTwo, deck }
-	// 		});
-	// 	}
-	// 	const flipBack = setTimeout(() => {
-	// 		dispatch({type:"Flipcard-Back",back: state.back})
-	// 		// setBack(false)
-	// 		}, 600)
-	// 	return () => clearTimeout(flipBack);
+	// 	cards.forEach(card => {
+	// 		const img = new Image();
+	// 		img.src = card.image;
+	// 	});
 	// }, [cards]);
 
-	// // 2. Show players only after player state is populated
-	// useEffect(() => {
-	// 	if(state.player?.one?.length && state.player?.two?.length) {
-	// 		dispatch({
-	// 			type: "ShowPlayers",
-	// 			enableSuddenDeathPlayer: state.enableSuddenDeathPlayer
-	// 		});
-	// 	}
-	// }, [state.player, state.enableSuddenDeathPlayer]);
+	// 1. Assign cards once cards are ready
+	useEffect(() => {
+		if(cards.length > 0) {
+			const playerOne = cards.slice(0, 6);
+			const playerTwo = cards.slice(6, 12);
+			const deck = cards.slice(12);
+
+			dispatch({
+				type: "Assign-Cards",
+				back: state.back,
+				player: { one: playerOne, two: playerTwo, deck }
+			});
+		}
+		const flipBack = setTimeout(() => {
+			dispatch({type:"Flipcard-Back",back: state.back})
+			}, 600)
+		return () => clearTimeout(flipBack);
+	}, [cards]);
+
+	// 2. Show players only after player state is populated
+	useEffect(() => {
+		if(state.player?.one?.length && state.player?.two?.length) {
+			dispatch({
+				type: "ShowPlayers",
+				enableSuddenDeathPlayer: state.enableSuddenDeathPlayer
+			});
+		}
+	}, [state.player, state.enableSuddenDeathPlayer]);
 
 	useEffect(() => {
 		const flipCard = () => {
 			if(state.player?.deck?.length > 0 && !state.back ) {
-				// setDeck(player.deck[0].image);
 				dispatch({type:"Flipcard-Face",backImage: state.player.deck[0].image, disable: state.disable})
-				// setDisable(false);
-					
 			}
 		};
 		const interval = setInterval(() => {
 			if(state.player?.deck?.length > 0) {
 				if(state.player.two.every((card) => (cardValue(card) + cardSuit(card)) < (cardValue(state.player.deck[0]) + cardSuit(state.player.deck[0])))) {
 					dispatch({type:"Flip-Card",stop:state.stop})
-					// setStop(false);
 					flipCard();
 				}
 			}
@@ -146,12 +107,6 @@ export function Game({ cards, setPlay }) {
 
 		if(!state.isSuddenDeath) {
 			if((value + suit) > totalDeckValue) {
-				// setPlayer(prev => ({
-				// 	...prev,
-				// 	deck: prev.deck.slice(1),
-				// 	one: [...prev.one, card],
-				// 	two: prev.two.filter((_, index) => index !== i)
-				// }));
 				dispatch({ type: "PlayerTwo-Comp-Card", disable: state.disable, player: {...state.player, one: [...state.player.one, card], two: state.player.two.filter((_, index) => index !== i), deck: state.player.deck.slice(1) } })
 				// setDisable(true);
 			} else if((value + suit) === totalDeckValue) {
@@ -164,23 +119,11 @@ export function Game({ cards, setPlay }) {
 			const updateTwo = state.two?.filter((_, index) => index !== i);
 			const chosenCard = state.player?.two?.[i];
 			dispatch({ type: "PlayerTwo-SD-Comp-Card", disable: state.disable, stop: state.stop, player:{...state.player, one:state.player.one, two: state.player.two.filter((_, index) => index !== i), deck: state.player.deck.slice(1)},deathCards:[...state.deathCards,chosenCard]})
-			// setDisable(false);
-			// setStop(true);
-			// setPlayer(prev => {
-			// 	const updateTwo = prev.two.filter((_, index) => index !== i);
-			// 	setDeathCards([...deathCards, prev.two[i]]);
-			// 	return {
-			// 		...prev,
-			// 		deck: prev.deck.slice(1),
-			// 		two: updateTwo
-			// 	};
-			// });
 		}
 	}
 	useEffect(() => {
 		if(state.stop && state.player.two.length === 0 && state.player.deck.length > 0 && !state.isSuddenDeath) {
 			dispatch({type:"SD-Player", enableSuddenDeathPlayer:true})
-			// setEnableSuddenDeathPlayer(true)
 		}
 	}, [state.player.two, state.stop, state.player.deck])
 	useEffect(() => {
@@ -194,17 +137,14 @@ export function Game({ cards, setPlay }) {
 					(card) => (cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)))
 
 				if(shouldEnableSuddenDeathPlayer && shouldEnableSuddenDeath) {
-					// setEnableSuddenDeathPlayer(true);
 					console.log('all items less than')
 					dispatch({type:"Enable-SuddenDeathPlayer",enableSuddenDeathPlayer:state.enableSuddenDeathPlayer, disable:state.disable})
-					// setDisable(false);
 				}
 			}
 		}//BUG FIX SD ROUND
 			if(state.enableSuddenDeathPlayer){
 					console.log('YES')
 				dispatch({type:"Start-SD-Round", isSuddenDeath: state.isSuddenDeath})
-				// setIsSuddenDeath(true);
 			}
 	}, [state.player.one, state.player.two, state.player.deck, state.enableSuddenDeathPlayer,state.isSuddenDeath, state.disable]);
 	useEffect(() => {
@@ -212,31 +152,11 @@ export function Game({ cards, setPlay }) {
 		const playerOneTurn = setTimeout(() => {
 			if(deckCard) {
 				if(!state.isSuddenDeath || state.player?.deck?.length === 0) {
-					// setPlayer(prev => {
-					// 	const findCard = state.player.one.find((card) => (cardValue(card) + cardSuit(card)) > (cardValue(deckCard) + cardSuit(deckCard)))
-					// 	state.player.one.some((card, i, arr) => {
-					// 		if((cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)) && arr.every((card) => (cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)))) {
-					// 			console.log('ALL CARDS LESS THAN DECK CARDS');
-					// 		}
-					// 		return false;
-					// 	});
-					// 	if(findCard && !state.isSuddenDeath) {
-					// 		return {
-					// 			...prev,
-					// 			one: prev.one.filter((card) => card !== findCard),
-					// 			two: [...prev.two, findCard],
-					// 			deck: prev.deck.slice(1)
-					// 		};
-					// 	}
-					// 	return prev;
-					// });
-					// compute next player state outside reducer
 					const findCard = state.player.one.find(
 						(card) =>
 							cardValue(card) + cardSuit(card) >
 							cardValue(deckCard) + cardSuit(deckCard)
 					);
-
 					state.player.one.some((card, i, arr) => {
 						if(
 							cardValue(card) + cardSuit(card) <
@@ -278,13 +198,6 @@ export function Game({ cards, setPlay }) {
 					const maxCard = state.player.one.find(card => cardValue(card) + cardSuit(card) === maxCardValue);
 					const updatedDeathCards = [maxCard, ...state.deathCards];
 					const updatedPlayerOneHand = state.player.one.filter(card => cardValue(card) + cardSuit(card) !== maxCardValue);
-					// setDeathCards(updatedDeathCards);
-					// setPlayer((prev) => {
-					// 	return {
-					// 		...prev,
-					// 		one: updatedPlayerOneHand
-					// 	};
-					// });
 					dispatch({type:"PlayerOne-Deathcard", deathCards:updatedDeathCards})
 					dispatch({type:"SD-Card-PlayerOne", player:{...state.player, one:updatedPlayerOneHand, two:state.player.two, deck:state.player.deck},})
 				}
@@ -292,27 +205,20 @@ export function Game({ cards, setPlay }) {
 		}, 1550);
 		if(state.player?.deck?.length > 0 && !state.isSuddenDeath) {
 			if(state.player.one.length === 0 && state.player.deck.length >= 0) {
-				// setWinner(`YOU DON'T WIN!`);
 				dispatch({ type: "Winner", disable: state.disable, winner: `YOU DON'T WIN!` })
-				// setDisable(true)
 				console.log('COMPUTER WON');
 			} else if(state.player.two.length === 0 && state.player.deck.length >= 0) {
 				dispatch({type:"Winner-PlayerOneTurn", winner: `YOU WIN!`})
-				// setWinner('YOU WIN!');
 				clearTimeout(playerOneTurn)
 				console.log('PLAYER WON');
 			}
 		}
 		if(state.player?.deck?.length === 0 && !state.isSuddenDeath) {
 			if(state.player.one.length < state.player.two.length) {
-				// setWinner(`YOU DON'T WIN!`);
 				dispatch({ type: "Winner", disable: state.disable, winner: `YOU DON'T WIN!`})
-				// setDisable(true);
 				console.log('WINNER COMPUTER');
 			} else if(state.player.two.length < state.player.one.length) {
-				// setWinner('YOU WIN!');
 				dispatch({ type: "Winner", disable: state.disable, winner: `YOU WIN!`})
-				// setDisable(true);
 				console.log('WINNER PLAYER');
 			}
 		}
@@ -329,8 +235,6 @@ export function Game({ cards, setPlay }) {
 		if(state.deathCards.length === 2 && state.isSuddenDeath && state.stop) {
 			dispatch({type:"Compare-DeathCards",disable: state.disable})
 			compareDeathCards();
-			// setDisable(sd => !sd)
-			console.log('STOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP', state.stop)
 		}
 	}, [state.deathCards, state.isSuddenDeath, state.disable, state.stop]);
 	const compareDeathCards = () => {
@@ -341,61 +245,27 @@ export function Game({ cards, setPlay }) {
 		const valueTwoSuit = cardSuit(cardTwo);
 		if((valueOne + valueOneSuit) > (valueTwo + valueTwoSuit)) {
 			setTimeout(() => {
-				// setPlayer((prev) => {
-				// 	return {
-				// 		...prev,
-				// 		one: prev.one.filter((card) => card !== cardOne),
-				// 		two: [...prev.two, ...state.deathCards],
-				// 		deck: prev.deck
-				// 	};
-				// });
-				// dispatch({ type: "Winner-DC-PlayerOne", player: { ...state.player, one: state.player.one.filter((card) => card !== cardOne), two:[...state.player.two,...state.deathCards] , deck: state.player.deck.slice(1)},deathCards:state.deathCards.slice(2)})
 				dispatch({
 					type: "Winner-DC",
 					winner: "Player-One",
 					deathCards: state.deathCards,
 					deck: state.player.deck.slice(1)
 				})
-
-				// setDeathCards(deathCards.slice(2));
 				dispatch({type: "Comp-Deathcards-Win", isSuddenDeath: !state.isSuddenDeath})
-				// setIsSuddenDeath(!state.isSuddenDeath);
 			}, 1000)
 			dispatch({type:"Comp-Deathcards-End", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer,stop:state.stop})
-			// setEnableSuddenDeathPlayer(false);
-			// setStop(false);
 			console.log('Computer Wins');
 		} else if((valueOne + valueOneSuit) < (valueTwo + valueTwoSuit)) {
 			setTimeout(() => {
-				// setPlayer((prev) => ({
-				// 	...prev,
-				// 	one: [...prev.one, ...deathCards],
-				// 	deck: prev.deck.slice(1)
-				// }));
-				// dispatch({
-				// 	type: "Winner-DC-PlayerTwo",
-				// 	player: {
-				// 		...state.player,
-				// 		one: [...state.player.two, ...state.deathCards], // remove Player One’s death cards
-				// 		two: state.player.two.filter((card) => !state.deathCards.includes(card)),                          // give them to Player Two
-				// 		deck: state.player.deck.slice(1)
-				// 	},
-				// 	deathCards: []
-				// })
 				dispatch({
 					type: "Winner-DC",
 					winner: "Player-Two",
 					deathCards: state.deathCards,
 					deck: state.player.deck.slice(1)
 				})
-
-				// setDeathCards(deathCards.slice(2));
 				dispatch({ type: "Comp-Deathcards-Win", isSuddenDeath:!state.isSuddenDeath })
-				// setIsSuddenDeath(!state.isSuddenDeath);
 			}, 1000)
 			dispatch({ type: "Comp-Deathcards-End", enableSuddenDeathPlayer: state.enableSuddenDeathPlayer, stop:state.stop})
-			// setEnableSuddenDeathPlayer(false);
-			// setStop(false);
 		}
 	};
 	const handleReset = () => {
@@ -405,15 +275,6 @@ export function Game({ cards, setPlay }) {
 		const newDeck = shuffledDeck;
 		console.log('reset');
 		dispatch({type:"Reshuffle-Cards",player:{...state.player, one: playerOne, two: playerTwo, deck: newDeck}, isSuddenDeath: state.isSuddenDeath,enableSuddenDeathPlayer:state.enableSuddenDeathPlayer,backImage:state.backImage, disable:state.disable,stop:state.stop, back: false, winner: '',deathCards:state.deathCards})
-		// setIsSuddenDeath(false);
-		// setDeathCards([]);
-		// setWinner('');
-		// setDisable(false);
-		// setStop(false);
-		// setBack(false);
-		// setEnableSuddenDeathPlayer(false);
-		// setPlayer({ one: playerOne, two: playerTwo, deck: newDeck });
-		// setDeck(backOfCard);
 	};
 	return (
  		<>
@@ -426,7 +287,7 @@ export function Game({ cards, setPlay }) {
  								<img className="w-fit lg:h-40 md:h-30 sm:h-30 h-17" key={i} src={card?.image} alt="Death Card" />
  							))}
  						</div>
- 						<HomeBtn onClick={() => setPlay((p) => !p)}/>
+ 						<HomeBtn onClick={() => gameDispatch({type: "Play-Game",btn:"Home", play:!play})}/>
  						<ResetBtn className="grid justify-center items-center border-2 rounded-full lg:w-full md:w-50 sm:w-full w-full md:h-8 lg:h-8 sm:h-10 bg-black text-black- lg:text-xl  md:text-xl sm:text-2xl text-sm border-b-[0.09em] border-t-[#f0f0f0] border-b-[#a8a6a6] border-none bg-linear-to-b from-[rgb(203,26,26)] to-[#682f2f] shadow-[0_4px_3px_#ff0000] active:translate-y-1 cursor-pointer place-self-center leading-tight"
  						 onResetClick={handleReset}/>
  						

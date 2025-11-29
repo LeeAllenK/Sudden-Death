@@ -1,0 +1,19 @@
+export const gameInitialState = {
+	isSuddenDeath: false,
+	stop: false,
+	back: false,
+	enableSuddenDeathPlayer: false,
+	disable: false,
+	backImage: `https:www.deckofcardsapi.com/static/img/back.png`,
+	winner: '',
+	player: {one:[], two:[], deck:[]},
+	deathCards: [],
+	cards: [],
+	deckId: '',
+	leaderboards: false,
+	leaders: [],
+	play: false,
+	instructions: false,
+	homeBgColor: ' bg-[#383636]',
+	gameBgColor: 'bg-black'	
+}

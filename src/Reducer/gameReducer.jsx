@@ -52,14 +52,6 @@ export function gameReducer(state,action){
 		case "Compare-DeathCards":{
 			return{...state, disable: true}
 		}
-		// case "Winner-DC-PlayerOne":{
-		// 	// console.log('comp-death-Win')
-		// 	return{...state, player: action.player,deathCards:action.deathCards}
-		// }
-		// case "Winner-DC-PlayerTwo":{
-		// 	// console.log('comp-death-Win')
-		// 	return { ...state, player: action.player, deathCards: action.deathCards }
-		// }
 		case "Winner-DC": {
 			if(action.winner === "Player-One") {
 				console.log('PLAYER111111111111111111 WINS')
@@ -88,7 +80,6 @@ export function gameReducer(state,action){
 			}
 			return state;
 		}
-
 		case "Comp-Deathcards-Win":{
 			// console.log('comp-death-Win')
 			return{...state, isSuddenDeath:action.isSuddenDeath}
