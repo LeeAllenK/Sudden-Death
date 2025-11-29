@@ -39,12 +39,12 @@ function cardSuit(card) {
 export function Game({ cards, play, gameDispatch }) {
 	const [state, dispatch] = useReducer(gameReducer,gameInitialState)
 	//CARD IMAGE PROBLEM WHEN DEPLOYED
-	// useEffect(() => {
-	// 	cards.forEach(card => {
-	// 		const img = new Image();
-	// 		img.src = card.image;
-	// 	});
-	// }, [cards]);
+	useEffect(() => {
+		cards.forEach(card => {
+			const img = new Image();
+			img.src = card.image;
+		});
+	}, [cards]);
 
 	// 1. Assign cards once cards are ready
 	useEffect(() => {
