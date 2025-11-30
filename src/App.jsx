@@ -21,37 +21,43 @@ function App() {
         console.error(err);
       }
     };
+    //Only run function if state is true
     if(state.play) {
       getDeck();
     }
   }, [state.play]);
+
   useEffect(() => {
     const start = async () => {
+      //Fallback in case deckId isn't populated
       if(!state.deckId) return;
       const url = `https://www.deckofcardsapi.com/api/deck/${state.deckId}/draw/?count=52`;
       try {
         const res = await fetch(url);
         const data = await res.json();
+        //Set cards for play
         dispatch({type:"Set-Cards", cards:data.cards})
       } catch(err) {
         console.error(err);
         return err;
       }
     };
+    //Only run function if there's a deckId
     if(state.deckId) {
       start();
     }
   }, [state.deckId]);
 
   useEffect(() => {
+    //Async function to fetch leaderboard information from MongoDB
       const fetchTimes = async () => {
         try {
           const url = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_LOCALHOST ;
           const res = await fetch(`${url}/api/stats`);
-          if(!res.ok) {
-            throw new Error('no response');
-          }
+          //If response isn't good throw and error of no response
+          if(!res.ok) throw new Error('no response');
           const text = await res.json();
+        //Dispatch to set text for leaderboard
           dispatch({type: "Leaderboard", leader:"Text", leaders:text})
         } catch(err) {
           console.error('Fetch error:', err);
