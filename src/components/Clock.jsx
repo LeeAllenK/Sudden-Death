@@ -17,13 +17,13 @@ export function Clock({ winner }) {
 				setSeconds(0);
 				setMinutes(minute=> minute + 1)
 			}
-		}, 500);
+		}, 1000);
 
 		return () => clearInterval(timerRef.current);
 	}, [winner,seconds,minutes]);
 
 	useEffect(() => {
-		if((minutes === 4 && seconds === 0) || winner.length > 0) {
+		if((minutes === 10 && seconds === 0) || winner.length > 0) {
 			clearInterval(timerRef.current);
 			timerRef.current = null; 
 		}
