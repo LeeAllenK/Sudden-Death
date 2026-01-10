@@ -1,5 +1,5 @@
 <div id="header" >
- <h1  class="heading-element" dir="auto">SUDDEN DEATH</h1>
+ <h1  class="heading-element" dir="auto">SUDDEN DEATH:<a href="https://sudden-death.onrender.com/">Play Here</a></h1>
  <img src="https://i.imgur.com/FW2PFr8.gif" alt="Sudden Death">
 The name of the game is SUDDEN DEATH!! Each player is dealt 7 cards from a deck. Once the cards are dealt, each player tries to beat the card on top of the deck. If neither player can beat the top card, a 'Sudden Death' round is triggered. In this round, players can choose one card from their hand to play in an attempt to win the round. The game continues until a player has an empty hand or the deck is exhausted.
 </div>
