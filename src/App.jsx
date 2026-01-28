@@ -1,17 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useReducer } from 'react';
 import { Game } from './components/Game';
 import { Menu } from './components/Menu';
 import {Leaderboard} from './components/Leaderboards'
 import { Instructions } from './components/Instructions';
-// import './App.css';
+import {gameInitialState} from './Reducer/data';
+import {appReducer} from './Reducer/appReducer';
 
 function App() {
-  const [cards, setCards] = useState([]);
-  const [deckId, setDeckId] = useState('');
-  const [play, setPlay] = useState(false);
-  const [instructions, setInstructions] = useState(false);
-  const [leaderboards, setLeaderboards] = useState(false);
-  const [leaders, setLeaders]= useState([]);
+  const [state, dispatch] = useReducer(appReducer, gameInitialState );
 
   useEffect(() => {
     const getDeck = async () => {
@@ -19,78 +15,82 @@ function App() {
       try {
         const res = await fetch(url);
         const data = await res.json();
-        setDeckId(data.deck_id);
+      //GET DECK ID
+        dispatch({type:"Get-DeckId", deckId: data?.deck_id})
       } catch(err) {
         console.error(err);
       }
     };
-    if(play) {
+    //Only run function if state is true
+    if(state.play) {
       getDeck();
     }
-  }, [play]);
+  }, [state.play]);
+
   useEffect(() => {
     const start = async () => {
-      if(!deckId) return;
-      const url = `https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=52`;
+      //Fallback in case deckId isn't populated
+      if(!state.deckId) return;
+      const url = `https://www.deckofcardsapi.com/api/deck/${state.deckId}/draw/?count=52`;
       try {
         const res = await fetch(url);
         const data = await res.json();
-        setCards(data.cards);
+        //Set cards for play
+        dispatch({type:"Set-Cards", cards:data.cards})
       } catch(err) {
         console.error(err);
+        return err;
       }
     };
-    if(deckId) {
+    //Only run function if there's a deckId
+    if(state.deckId) {
       start();
     }
-  }, [deckId]);
+  }, [state.deckId]);
 
   useEffect(() => {
+    //Async function to fetch leaderboard information from MongoDB
       const fetchTimes = async () => {
         try {
-          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/stats`);
-          if(!res.ok) {
-            throw new Error('no response');
-          }
-          const data = await res.json();
-          console.log(data);
-          setLeaders(data)
+          const url = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_LOCALHOST ;
+          const res = await fetch(`${url}/api/stats`);
+          //If response isn't good throw and error of no response
+          if(!res.ok) throw new Error('no response');
+          const text = await res.json();
+        //Dispatch to set text for leaderboard
+          dispatch({type: "Leaderboard", leader:"Text", leaders:text})
         } catch(err) {
           console.error('Fetch error:', err);
+          return err;
         }
     }
-      if(leaderboards){
+      if(state.leaderboards){
         fetchTimes();
       }
-  }, [leaderboards]);
-  console.log('VITE',import.meta.env.VITE_API_URL);
-
-  const handleClick = () => {
-    setInstructions(true);
-  };
+  }, [state.leaderboards]);
 
   useEffect(() => {
-    document.body.className = !play ? ' bg-[#383636]' : 'bg-black';
-  }, [play]);
+    document.body.className = !state.play ? state.homeBgColor : state.gameBgColor;
+  }, [state.play]);
 
-  const sortedLeaders = leaders.sort((a, b) => {
+  const sortedLeaders = state.leaders.sort((a, b) => {
     const timeA = a.time.split(':').reduce((acc, time) => (60 * acc) + +time);
     const timeB = b.time.split(':').reduce((acc, time) => (60 * acc) + +time);
     return timeA - timeB;
   });
   return (
   <>
-    <div className="items-center justify-center h-screen w-screen font-bold ">
-      {instructions ? (
-          <Instructions onClick={() => setInstructions(si=>!si)} setInstructions={setInstructions}/>
-      ) : play ? (
-          <Game cards={cards} setPlay={setPlay}  />        
-      ) : leaderboards ? (    
-          <Leaderboard  setLeaderboards={setLeaderboards} sortedLeaders={sortedLeaders}/>    
+    <section className="items-center justify-center h-screen w-screen font-bold ">
+      {state.instructions ? (
+          <Instructions onClick={() => dispatch({type:"Instructions",btn:"Main", instructions:!state.instructions})} instructions={state.instructions} instructionDispatch={dispatch}/>
+      ) : state.play ? (
+          <Game cards={state.cards} play={state.play} gameDispatch={dispatch}/>        
+      ) : state.leaderboards ? (    
+          <Leaderboard  leaderboards={state.leaderboards} leaderboardDispatch={dispatch} sortedLeaders={sortedLeaders}/>    
       ) :( 
-          <Menu setInstructions={setInstructions} setPlay={setPlay} setLeaderboards={setLeaderboards} />
+          <Menu instructions={state.instructions} play={state.play} menuDispatch={dispatch} leaderboards={state.leaderboards} leaderboardDispatch={dispatch} />
       )}
-    </div>
+    </section>
   </>
   );
 }
