@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { Username } from './Username';
-import { HomeBtn } from './Home-Btn';
 
 export function Clock({ winner, reset }) {
 	const [seconds, setSeconds] = useState(0);

@@ -1,4 +1,4 @@
-import { useState, useEffect,useReducer } from 'react';
+import {useEffect,useReducer } from 'react';
 import { Game } from './components/Game';
 import { Menu } from './components/Menu';
 import {Leaderboard} from './components/Leaderboards'
