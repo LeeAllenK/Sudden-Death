@@ -1,12 +1,12 @@
 <div id="header" >
- <h1  class="heading-element" dir="auto">SUDDEN DEATH<a href="https://suddendeath-fladev.netlify.app/">:PLAY Game</a></h1>
- <img src="https://i.imgur.com/139fKL3.gif" alt="Sudden Death">
+ <h1  class="heading-element" dir="auto">SUDDEN DEATH:<a href="https://sudden-death.onrender.com/">Play Here</a></h1>
+ <img src="https://i.imgur.com/150Z55w.gif" alt="Sudden Death">
 The name of the game is SUDDEN DEATH!! Each player is dealt 7 cards from a deck. Once the cards are dealt, each player tries to beat the card on top of the deck. If neither player can beat the top card, a 'Sudden Death' round is triggered. In this round, players can choose one card from their hand to play in an attempt to win the round. The game continues until a player has an empty hand or the deck is exhausted.
 </div>
 
 <div id="header" >
  <h1 class="heading-element" dir="auto">How It's Made:</h1>
- Tech used: HTML, CSS, JavaScript,React <br/><br/>
+ Tech used: HTML, Tailwind,React,Vite <br/><br/>
  React was used for building the user interface and managing state. Implementing react hooks of useState and useEffect to manage game state and update dependencies effiiciently. The user interface is designed to be responsive and user-friendly. CSS is used for styling and creating a visually appealing design, while JavaScript handles the game logic and interactivity.
 </div>
 
