@@ -1,7 +1,8 @@
 export const gameInitialState = {
 	isSuddenDeath: false,
 	stop: false,
-	back: false,
+	back: false,	
+	reset: false,
 	enableSuddenDeathPlayer: false,
 	disable: false,
 	backImage: `https:www.deckofcardsapi.com/static/img/back.png`,

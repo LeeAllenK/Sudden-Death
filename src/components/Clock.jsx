@@ -2,30 +2,36 @@ import { useState, useEffect, useRef } from 'react';
 import { Username } from './Username';
 import { HomeBtn } from './Home-Btn';
 
-export function Clock({ winner }) {
+export function Clock({ winner, reset }) {
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
 	const [username, setUsername] = useState('');
 	const timerRef = useRef(null);
-
-	// Start interval 
 	useEffect(() => {
-		if(winner.length > 0) return; 
-		timerRef.current = setInterval(() => {
-			setSeconds(seconds => seconds+1)
-			if(seconds === 59){
-				setSeconds(0);
-				setMinutes(minute=> minute + 1)
-			}
-		}, 1000);
 
+		if(winner.length > 0 || reset) {
+			clearInterval(timerRef.current);
+			setSeconds(0);
+			setMinutes(0);
+			return;
+		}
+	//useRef used to keep track of timer
+		timerRef.current = setInterval(() => {
+			setSeconds(second => {
+				if(second === 59) {
+					setMinutes(m => m + 1);
+					return 0;
+				}
+				return second + 1;
+			});
+		}, 1000);
 		return () => clearInterval(timerRef.current);
-	}, [winner,seconds,minutes]);
+	}, [winner, reset]);
 
 	useEffect(() => {
 		if((minutes === 10 && seconds === 0) || winner.length > 0) {
 			clearInterval(timerRef.current);
-			timerRef.current = null; 
+			timerRef.current = null;
 		}
 	}, [minutes, seconds, winner]);
 
@@ -42,10 +48,8 @@ export function Clock({ winner }) {
 			});
 			if(!res.ok) throw new Error('Network response was not ok');
 			const data = await res.json();
-			console.log(data);
 		} catch(err) {
-			console.error(err);
-			alert('Error has occurred');
+			return err;
 		}
 	};
 

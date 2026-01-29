@@ -43,7 +43,6 @@ export function gameReducer(state,action){
 			return{...state,enableSuddenDeathPlayer:action.enableSuddenDeathPlayer}
 		}
 		case "Enable-SuddenDeathPlayer":{
-				// console.log('enableSD')
 			return{...state,enableSuddenDeathPlayer:true, disable: false}
 		}
 		case "Start-SD-Round":{
@@ -54,7 +53,6 @@ export function gameReducer(state,action){
 		}
 		case "Winner-DC": {
 			if(action.winner === "Player-One") {
-				console.log('PLAYER111111111111111111 WINS')
 				return {
 					...state,
 					player: {
@@ -66,7 +64,6 @@ export function gameReducer(state,action){
 					deathCards: []
 				};
 			} else if(action.winner === "Player-Two") {
-				console.log('PLAYER22222222222222 WINS')
 				return {
 					...state,
 					player: {
@@ -81,16 +78,17 @@ export function gameReducer(state,action){
 			return state;
 		}
 		case "Comp-Deathcards-Win":{
-			// console.log('comp-death-Win')
 			return{...state, isSuddenDeath:action.isSuddenDeath}
 		}
 		case "Comp-Deathcards-End":{
-			// console.log('comp-death-Win')
 			return{...state, enableSuddenDeathPlayer:false, stop:false}
 		}
 		case "Reshuffle-Cards":{
-			// console.log('Reshuffle');
-			return{...state, player:action.player, isSuddenDeath: false, enableSuddenDeathPlayer:false,backImage:action.backImage, stop: false, disable: false, winner: action.winner,deathCards:[]}
+			console.log('Reshuffle');
+			return{...state, player:action.player, isSuddenDeath: false, enableSuddenDeathPlayer:false,backImage:action.backImage, stop: false, disable: false, winner: action.winner,deathCards:[], reset: action.reset}
+		}
+		case "Clear-Reset":{
+			return{...state, reset:false }	
 		}
 		case "Winner":{
 			return{...state, disable: true, winner: action.winner}

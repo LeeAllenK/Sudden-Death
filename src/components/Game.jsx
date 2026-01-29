@@ -93,7 +93,6 @@ export function Game({ cards, play, gameDispatch }) {
 			clearInterval(interval)
 		} else {
 			flipCard();
-				console.log('face')
 		}
 		return () => clearInterval(interval);
 	}, [state.player.two, state.player.deck, state.stop, state.isSuddenDeath, state.disable, state.back]);
@@ -137,13 +136,11 @@ export function Game({ cards, play, gameDispatch }) {
 					(card) => (cardValue(card) + cardSuit(card)) < (cardValue(deckCard) + cardSuit(deckCard)))
 
 				if(shouldEnableSuddenDeathPlayer && shouldEnableSuddenDeath) {
-					console.log('all items less than')
 					dispatch({type:"Enable-SuddenDeathPlayer",enableSuddenDeathPlayer:state.enableSuddenDeathPlayer, disable:state.disable})
 				}
 			}
 		}//BUG FIX SD ROUND
 			if(state.enableSuddenDeathPlayer){
-					console.log('YES')
 				dispatch({type:"Start-SD-Round", isSuddenDeath: state.isSuddenDeath})
 			}
 	}, [state.player.one, state.player.two, state.player.deck, state.enableSuddenDeathPlayer,state.isSuddenDeath, state.disable]);
@@ -167,7 +164,6 @@ export function Game({ cards, play, gameDispatch }) {
 									cardValue(deckCard) + cardSuit(deckCard)
 							)
 						) {
-							console.log("ALL CARDS LESS THAN DECK CARDS");
 						}
 						return false;
 					});
@@ -206,27 +202,21 @@ export function Game({ cards, play, gameDispatch }) {
 		if(state.player?.deck?.length > 0 && !state.isSuddenDeath) {
 			if(state.player.one.length === 0 && state.player.deck.length >= 0) {
 				dispatch({ type: "Winner", disable: state.disable, winner: `YOU DON'T WIN!` })
-				console.log('COMPUTER WON');
 			} else if(state.player.two.length === 0 && state.player.deck.length >= 0) {
 				dispatch({type:"Winner-PlayerOneTurn", winner: `YOU WIN!`})
 				clearTimeout(playerOneTurn)
-				console.log('PLAYER WON');
 			}
 		}
 		if(state.player?.deck?.length === 0 && !state.isSuddenDeath) {
 			if(state.player.one.length < state.player.two.length) {
 				dispatch({ type: "Winner", disable: state.disable, winner: `YOU DON'T WIN!`})
-				console.log('WINNER COMPUTER');
 			} else if(state.player.two.length < state.player.one.length) {
 				dispatch({ type: "Winner", disable: state.disable, winner: `YOU WIN!`})
-				console.log('WINNER PLAYER');
 			}
 		}
 		if(state.stop && !state.isSuddenDeath && state.player.one.length > 0) {
 			if(state.player.one.every((card) => (cardValue(card) + cardSuit(card)) < (cardValue(state.player.deck[0]) + cardSuit(state.player.deck[0])))) {
 				clearTimeout(playerOneTurn);
-				console.log('STOP INTERVAL');
-				console.log(cardValue(state.player.deck[0]), cardSuit(state.player.deck[0]));
 			}
 		}
 		return () => clearTimeout(playerOneTurn);
@@ -254,7 +244,6 @@ export function Game({ cards, play, gameDispatch }) {
 				dispatch({type: "Comp-Deathcards-Win", isSuddenDeath: !state.isSuddenDeath})
 			}, 1000)
 			dispatch({type:"Comp-Deathcards-End", enableSuddenDeathPlayer:state.enableSuddenDeathPlayer,stop:state.stop})
-			console.log('Computer Wins');
 		} else if((valueOne + valueOneSuit) < (valueTwo + valueTwoSuit)) {
 			setTimeout(() => {
 				dispatch({
@@ -274,14 +263,15 @@ export function Game({ cards, play, gameDispatch }) {
 		const playerTwo = shuffledDeck.splice(0, 6);
 		const newDeck = shuffledDeck;
 		console.log('reset');
-		dispatch({type:"Reshuffle-Cards",player:{...state.player, one: playerOne, two: playerTwo, deck: newDeck}, isSuddenDeath: state.isSuddenDeath,enableSuddenDeathPlayer:state.enableSuddenDeathPlayer,backImage:state.backImage, disable:state.disable,stop:state.stop, back: false, winner: '',deathCards:state.deathCards})
+		dispatch({type:"Reshuffle-Cards",player:{...state.player, one: playerOne, two: playerTwo, deck: newDeck}, isSuddenDeath: state.isSuddenDeath,enableSuddenDeathPlayer:state.enableSuddenDeathPlayer,backImage:state.backImage, disable:state.disable,stop:state.stop, back: false, winner: '',deathCards:state.deathCards, reset: true})
+		setTimeout(() => dispatch({ type: "Clear-Reset" }), 0);
 	};
 	return (
  		<>
  			<section className="grid w-screen h-screen place-items-center">
 				<section className="grid  w-screen max-w-screen max-h-screen h-screen p-1 ">
  					<section className="grid grid-cols-3 items-center h-fit w-full pb-2">
- 						<Clock winner={state.winner} />
+ 						<Clock winner={state.winner} reset={state.reset} />
  						<div className="grid grid-cols-2 items-center place-items-center w-fit  lg:h-40 md:h-30 sm:h-30 h-fit gap-0">
  							{state.deathCards.map((card, i) => (
  								<img className="w-fit lg:h-40 md:h-30 sm:h-30 h-17" key={i} src={card?.image} alt="Death Card" />

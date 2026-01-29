@@ -18,7 +18,6 @@ function App() {
       //GET DECK ID
         dispatch({type:"Get-DeckId", deckId: data?.deck_id})
       } catch(err) {
-        console.error(err);
       }
     };
     //Only run function if state is true
@@ -60,7 +59,6 @@ function App() {
         //Dispatch to set text for leaderboard
           dispatch({type: "Leaderboard", leader:"Text", leaders:text})
         } catch(err) {
-          console.error('Fetch error:', err);
           return err;
         }
     }
